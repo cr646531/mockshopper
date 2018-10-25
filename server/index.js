@@ -1,13 +1,12 @@
 const express = require('express');
 
-
 const app = express();
 
-//ADD BODY PARSER
+// ADD BODY PARSER
 
-//ADD STATIC FILES
+// ADD STATIC FILES
 
-//ROUTING
+// ROUTING
 app.use('/api', require('./routes'));
 
 

@@ -3,6 +3,6 @@ const router = require('express').Router();
 
 // add your route here
 router.use('/', require('./userRoutes.js'));
-// router.use('/', require('./sampleroute.js'));
+
 
 module.exports = router;
