@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
-const { Product } = require('../models/Products.js');
-const { Review } = require('../models/Review.js')
+const { Product } = require('../../models/Products.js');
+const { Review } = require('../../models/Review.js')
 
 router.get('/', (req, res, next) => {
   Product.findAll()
