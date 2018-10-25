@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../models/User');
+const User = require('../../models/User');
 
 // load users
 router.get('/users', (req, res, next) => {
@@ -10,7 +10,7 @@ router.get('/users', (req, res, next) => {
 
 // edit user
 router.put('/users/:userId', (req, res, next) => {
-  User.findById(req.params.id)
+  User.findById(req.params.userId)
     .then(user => user.update(req.body))
     .then(user => res.send(user))
     .catch(next);
@@ -20,7 +20,7 @@ router.put('/users/:userId', (req, res, next) => {
 router.delete('/users/:userId', (req, res, next) => {
   User.destroy({
     where: {
-      id: req.params.id,
+      id: req.params.userId,
     },
   })
     .then(() => res.sendStatus(204))
