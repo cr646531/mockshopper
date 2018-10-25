@@ -7,7 +7,7 @@ const syncAndSeed = () => db.sync({ force: true })
     User.create({ username: 'emily' }),
     User.create({ username: 'leovanny' }),
     User.create({ username: 'charlie' }),
-    User.create({ username: 'daniel' }),
+    User.create({ username: 'david' }),
   ]));
 
 module.exports = { syncAndSeed };

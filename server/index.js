@@ -1,5 +1,5 @@
 const express = require('express');
-// const db = require('../models/db');
+const bodyParser = require('body-parser');
 const { syncAndSeed } = require('../models/seed');
 
 const app = express();
@@ -9,7 +9,11 @@ app.listen(port, () => console.log(`listening on port ${port}`));
 
 syncAndSeed();
 
-// ADD BODY PARSER
+// BODY PARSER
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
 
 // ADD STATIC FILES
 
