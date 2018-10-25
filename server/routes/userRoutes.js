@@ -33,3 +33,5 @@ router.post('/users/', (req, res, next) => {
     .then(user => res.send(user))
     .catch(next);
 });
+
+module.exports = router;
