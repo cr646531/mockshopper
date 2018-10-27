@@ -14,20 +14,20 @@ const Nav = props => {
   return (
     <nav>
       <ul className="container">
-        <li>Profile </li>
-        <li className="search">
-          <input type="text" className="search-input" placeholder="Search" />
-        </li>
+        <li>Home </li>
+        <li>Login</li>
         <li>Logout</li>
+        <li>Cart</li>
+        <li>Create Account</li>
+        <li>Profile</li>
       </ul>
     </nav>
   );
 };
 
-
-export default Nav
+export default Nav;
 
 //export default connect(
-  //mapStateToProps,
-  //mapDispatchToProps
+//mapStateToProps,
+//mapDispatchToProps
 /*)(Nav);*/
