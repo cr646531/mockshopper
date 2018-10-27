@@ -12,16 +12,29 @@ const mapDispatchToProps = dispatch => {
 
 const Nav = props => {
   return (
-    <nav>
-      <ul className="container">
-        <li>Home </li>
-        <li>Login</li>
-        <li>Logout</li>
-        <li>Cart</li>
-        <li>Create Account</li>
-        <li>Profile</li>
-      </ul>
-    </nav>
+    <div className="container">
+      <div>
+        <Link to="/login">Login</Link>
+      </div>
+
+      <div>Logout</div>
+
+      <div>
+        <Link to="/cart">Cart</Link>
+      </div>
+
+      <div>
+        <Link to="/products">Products</Link>
+      </div>
+
+      <div>
+        <Link to="/create_account">Create Account</Link>
+      </div>
+
+      <div>
+        <Link to="/profile">Profile</Link>
+      </div>
+    </div>
   );
 };
 
