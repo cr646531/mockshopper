@@ -41,7 +41,7 @@ app.get('/', (req, res, next) => {
 
 
 
-app.get('/seed', async (req, res, next) => {
+app.use('/', async (req, res, next) => {
   try {
       await syncAndSeed();
       res.redirect('/api');
