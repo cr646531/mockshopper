@@ -1,4 +1,26 @@
 <!DOCTYPE html>
+<style>
+
+.container {
+  display: flex;
+  justify-content: center;
+
+}
+
+.container > div {
+  flex: 1;
+
+}
+
+@media all and (max-width: 400px) {
+  .container > div {
+    flex-basis: 100%;
+  }
+
+}
+
+</style>
+
 <html>
 <head>
   <script src="/dist/main.js" defer></script>
