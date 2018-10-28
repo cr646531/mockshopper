@@ -16,6 +16,7 @@ const path = require('path')
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
   console.log(homepage);
+  syncAndSeed();
 });
 
 app.use(bodyParser.json());
@@ -28,24 +29,12 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-// app.use('/', async (req, res, next) => {
-//   try {
-//     await syncAndSeed();
-//     res.redirect('/api');
-//   } catch(err) {
-//     console.log('something went wrong');
-//     next(err);
-//   }
-// });
-
 app.use('/auth/google', require('./routes/oauth')) //google oauth routing
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/products', productRouter);
 app.use('/api/lineItems', lineItemRouter);
 app.use('/api/cart', cartRouter);
-
-
 
 
 module.exports = app;
