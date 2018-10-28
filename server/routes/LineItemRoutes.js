@@ -1,5 +1,5 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const lineItemRouter = express.Router();
 const { LineItem } = require('../../models/LineItem.js');
 
 router.get('/', (req, res, next) => {
@@ -36,7 +36,7 @@ router.post('/order/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-module.exports = router
+module.exports = lineItemRouter;
 
 
 

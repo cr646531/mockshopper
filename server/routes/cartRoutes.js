@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require('./router')
+const cartRouter = express.Router();
 const {Order} = require('../models/Cart')
 
 
@@ -24,4 +24,4 @@ router.get('/orders', async (req, res, next) => {
 });
 
 
-module.exports = router;
+module.exports = cartRouter;

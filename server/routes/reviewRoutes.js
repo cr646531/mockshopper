@@ -1,4 +1,4 @@
-const review = require('express').Router();
+const reviewRouter = require('express').Router();
 const Review = require('../../models/Review')
 
 review.get('/', (req, res, next) => {
@@ -33,4 +33,4 @@ review.post('/', (req, res, next) => {
 });
 
 
-module.exports = review;
+module.exports = reviewRouter;

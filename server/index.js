@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { syncAndSeed } = require('../models/seed');
-const router = require('./routes/userRoutes');
-const review = require('./routes/reviewRoutes');
+const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
+const productRouter = require('./routes/productRoutes');
+const cartRouter = require('./routes/cartRoutes');
+const lineItemRouter = require('./routes/lineItemRoutes');
 //added morgan
 const morgan = require('morgan');
 
@@ -51,8 +54,11 @@ app.use('/', async (req, res, next) => {
   }
 });
 
-app.use('/api/user', router);
-app.use('/api/reviews', review);
+app.use('/api/users', userRouter);
+app.use('/api/reviews', reviewRouter);
+app.use('/api/products', productRouter);
+app.use('/api/lineItems', lineItemRouter);
+app.user('/api/cart', cartRouter);
 
 
 

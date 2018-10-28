@@ -1,5 +1,5 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const productRouter = express.Router();
 const { Product } = require('../../models/Products.js');
 const { Review } = require('../../models/Review.js')
 
@@ -17,4 +17,4 @@ router.get('/with_reviews/', (req, res, next) => {
     .catch(next);
 });
 
-module.exports = router;
+module.exports = productRouter;
