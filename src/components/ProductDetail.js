@@ -17,7 +17,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-class ProductDetailPage extends Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,7 +34,7 @@ class ProductDetailPage extends Component {
   }
 }
 
-export default ProductDetailPage;
+export default ProductDetail;
 
 //export default connect(
 //mapStateToProps,

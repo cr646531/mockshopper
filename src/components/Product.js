@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-class ProductPage extends Component {
+class Product extends Component {
   constructor(props) {
     super(props);
   }
@@ -53,7 +53,7 @@ class ProductPage extends Component {
   }
 }
 
-export default ProductPage;
+export default Product;
 
 //export default connect(
 //mapStateToProps,

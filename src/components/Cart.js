@@ -10,7 +10,7 @@ const mapStateToProps = state => {
   };
 };
 
-class CartPage extends Component {
+class Cart extends Component {
   constructor() {
     super();
 
@@ -54,4 +54,4 @@ class CartPage extends Component {
   }
 }
 
-export default CartPage;
+export default Cart;
