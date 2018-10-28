@@ -14,7 +14,7 @@ const Review = ({productList}) => {
     <div id='productReview'>
       <ul>
         {singleProduct.review.map(review => {
-          return <li key={reivew.id}> {review.text}</li>
+          return <li key={review.id}> {review.text}</li>
         })}
       </ul>
     </div>
