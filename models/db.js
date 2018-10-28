@@ -4,5 +4,5 @@ const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/
 // leaving the logging on in order to debug once we are ready to seed some data
 
 module.exports = {
-  db,
+  db
 };
