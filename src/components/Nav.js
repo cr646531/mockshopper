@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Login from './Login'
 
 const mapStateToProps = state => {
   return {};
@@ -14,7 +15,7 @@ const Nav = props => {
   return (
     <div className="container">
       <div>
-        <Link to="/login">Login</Link>
+        <Login />
       </div>
 
       <div>Logout</div>
