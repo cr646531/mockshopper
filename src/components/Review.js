@@ -7,14 +7,14 @@ const Review = ({productList}) => {
   // would there be a situation where you would need to get all of the rivews without the associations?
   // I was imagining the product id would be passed in as props
   let singleProduct = productList.find(product => {
-    return product.id === +match.params.id
+    return product.id === +props.match.params.id
   })
 
   return (
     <div id='productReview'>
       <ul>
         {singleProduct.review.map(review => {
-          return <li key={reivew.id}> {review.text}</li>
+          return <li key={review.id}> {review.text}</li>
         })}
       </ul>
     </div>
