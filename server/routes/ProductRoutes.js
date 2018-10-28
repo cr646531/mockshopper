@@ -3,13 +3,13 @@ const productRouter = express.Router();
 const { Product } = require('../../models/Products.js');
 const { Review } = require('../../models/Review.js')
 
-router.get('/', (req, res, next) => {
+productRouter.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => res.send(products))
     .catch(next);
 });
 
-router.get('/with_reviews/', (req, res, next) => {
+productRouter.get('/with_reviews/', (req, res, next) => {
   Product.findAll({
     include: [{ model: Review }]
   })

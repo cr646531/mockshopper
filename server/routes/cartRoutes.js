@@ -3,7 +3,7 @@ const cartRouter = express.Router();
 const {Order} = require('../models/Cart')
 
 
-router.get('/orders', async (req, res, next) => {
+cartRouter.get('/orders', async (req, res, next) => {
   const attr = {
     status: 'CART'
   };

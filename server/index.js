@@ -16,7 +16,6 @@ const homepage = 'http://localhost:3000/';
 const path = require('path')
 
 
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
   console.log(homepage);
@@ -29,20 +28,12 @@ app.use(morgan('dev'));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 
-
 // ADD STATIC FILES
-
-
-// ROUTING
-//app.use('/api', require('./routes'));
-
 
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-
-
 
 app.use('/', async (req, res, next) => {
   try {

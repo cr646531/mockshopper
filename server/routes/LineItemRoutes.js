@@ -2,13 +2,13 @@ const express = require('express');
 const lineItemRouter = express.Router();
 const { LineItem } = require('../../models/LineItem.js');
 
-router.get('/', (req, res, next) => {
+lineItemRouter.get('/', (req, res, next) => {
   LineItem.findAll()
     .then(lineItems => res.send(lineItems))
     .catch(next);
 });
 
-router.delete('/:lineItemId/orders/:orderId', (req, res, next) => {
+lineItemRouter.delete('/:lineItemId/orders/:orderId', (req, res, next) => {
   LineItem.destroy({
     where: {
       orderId: req.params.orderId,
@@ -19,14 +19,14 @@ router.delete('/:lineItemId/orders/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/:lineItemId/orders/:orderId', (req, res, next) => {
+lineItemRouter.put('/:lineItemId/orders/:orderId', (req, res, next) => {
   LineItem.findById(req.params.LineItemid)
     .then(lineItem => lineItem.update(req.body))
     .then(lineItem => res.send(lineItem))
     .catch(next);
 });
 
-router.post('/order/:orderId', (req, res, next) => {
+lineItemRouter.post('/order/:orderId', (req, res, next) => {
   LineItem.create({
     orderId: req.params.orderId,
     quantity: req.body.quantity,
