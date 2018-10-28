@@ -10,6 +10,9 @@ const morgan = require('morgan');
 const app = express();
 const port = process.env.PORT || 3000;
 const homepage = 'http://localhost:3000/';
+const path = require('path')
+
+
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
@@ -20,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //added morgan
 app.use(morgan('dev'));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
+
 
 
 // ADD STATIC FILES
@@ -28,7 +33,15 @@ app.use(morgan('dev'));
 // ROUTING
 //app.use('/api', require('./routes'));
 
-app.get('/', async (req, res, next) => {
+
+
+app.get('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+
+
+app.use('/', async (req, res, next) => {
   try {
       await syncAndSeed();
       res.redirect('/api');
