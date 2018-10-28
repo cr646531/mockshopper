@@ -49,7 +49,7 @@ app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/products', productRouter);
 app.use('/api/lineItems', lineItemRouter);
-app.user('/api/cart', cartRouter);
+app.use('/api/cart', cartRouter);
 
 
 
