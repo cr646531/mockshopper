@@ -21,7 +21,7 @@ class ReviewForm extends Components {
         <div id='ReviewForm'>
           <form>
             <label> Review: </label>
-            <input type='text' name='review' value={this.state.text} onchange={this.handleChange}/>
+            <input type='text' name='text' value={this.state.text} onChange={this.handleChange}/>
             <button type='submit'>Submit</button>
           </form>
         </div>
