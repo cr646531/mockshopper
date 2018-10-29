@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, props) => {
-  let student = {};
+  let product = null;
 
   if (props.match.params.productId) {
     product = state.products.find(product => {
-      return product.id === props.match.params.productId * 1;
+      return product.id === props.match.params.productId;
     });
   } else {
     console.log('No product');
@@ -25,18 +25,17 @@ class ProductDetail extends Component {
   render() {
     return (
       <div>
-        <div> {this.props.product.name}</div>
-        <hr />
-        <br />
-        <div>{this.props.product.description}</div>
+        {this.props.product ? (
+          <div>
+            <div> {this.props.product.name}</div>
+            <hr />
+            <br />
+            <div>{this.props.product.description}</div>
+          </div>
+        ) : null}
       </div>
     );
   }
 }
 
-export default ProductDetail;
-
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(ProductDetailPage);*/
+export default connect(mapStateToProps)(ProductDetail);

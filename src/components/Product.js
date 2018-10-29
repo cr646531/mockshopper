@@ -10,12 +10,12 @@ class Product extends Component {
   render() {
     return (
       <div>
+        <br />
         {this.props.categories.map((category, index) => {
           return (
             <div key={index}>
               {category}
               <hr />
-              <br />
               {this.props.products.map(product => {
                 if (product.category === category) {
                   return (
@@ -49,14 +49,5 @@ const mapStateToProps = ({ products }) => {
     categories
   };
 };
-
-// const mapDispatchToProps = dispatch => {
-//   return {};
-// };
-
 export default connect(mapStateToProps)(Product);
 
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(ProductPage);*/
