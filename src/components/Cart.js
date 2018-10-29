@@ -31,23 +31,27 @@ class Cart extends Component {
         </div>
         <br />
         <br />
-        {this.props.cart.lineItems.map(lineItem => {
-          const lineItemsProduct = this.props.products.find(
-            product => product.id === lineItem.productId
-          );
+        {this.props.cart
+          ? this.props.cart.lineItems.map(lineItem => {
+              const lineItemsProduct = this.props.products.find(
+                product => product.id === lineItem.productId
+              );
 
-          return (
-            <div key={lineItem.id} align="center">
-              {'Product: ' +
-                lineItemsProduct.name +
-                '   Quantity: ' +
-                lineItem.quantity}
-              <button onClick={() => this.addQuantity()}>Subtract</button>
-              <button onClick={() => this.subtractQuantity()}>Add</button>
-              <button onClick={this.deleteLineItem}>DELETE LINE ITEM</button>
-            </div>
-          );
-        })}
+              return (
+                <div key={lineItem.id} align="center">
+                  {'Product: ' +
+                    lineItemsProduct.name +
+                    '   Quantity: ' +
+                    lineItem.quantity}
+                  <button onClick={() => this.addQuantity()}>Subtract</button>
+                  <button onClick={() => this.subtractQuantity()}>Add</button>
+                  <button onClick={this.deleteLineItem}>
+                    DELETE LINE ITEM
+                  </button>
+                </div>
+              );
+            })
+            :<div> Your cart is empty!</div>}
         <br />
       </div>
     );
