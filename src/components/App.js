@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
-import Nav from './components/Nav';
-import Product from './components/Product';
-import ProductDetail from './components/ProductDetail';
-import Cart from './components/Cart.js'
+import Nav from './Nav';
+import Product from './Product';
+import ProductDetail from './ProductDetail';
+import Cart from './Cart.js'
+import { loadProducts } from '../store';
 
 class App extends Component {
-  constructor() {
-    super();
+
+  componentDidMount(){
+    this.props.initProducts();
   }
 
   render() {
@@ -28,7 +30,15 @@ class App extends Component {
   }
 }
 
-render(<App />, document.getElementById('root'));
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    initProducts: () => { dispatch(loadProducts()) }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(App);
+
+//render(<App />, document.getElementById('root'));
 
 /*const ConnectedApp = connect(*/
 //null,

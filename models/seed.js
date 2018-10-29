@@ -1,6 +1,6 @@
 const { db } = require('./db');
 const { User } = require('./User');
-const {Product } = require('./Product');
+const Product = require('./Product');
 const Review = require('./Review');
 
 const syncAndSeed = () =>
