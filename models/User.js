@@ -1,14 +1,22 @@
 const { db } = require('./db');
 
 const User = db.define('user', {
-  username: {
+  email: {
     type: db.Sequelize.STRING,
     allowNull: false,
     unique: true,
     validate: {
       notEmpty: true,
-    },
+    }
   },
+  username: {
+    type: db.Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+  googleId: db.Sequelize.STRING
 });
 
 module.exports = {

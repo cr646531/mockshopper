@@ -8,6 +8,7 @@ import axios from 'axios'
 const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
 const LOAD_USERS = 'LOAD_USERS';
+const GET_ME = 'GET_ME'
 
 //----------------------------------------------------------------------
 
@@ -38,10 +39,20 @@ const userReducer = (state = [], action) => {
   return state;
 };
 
+const loggedInUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_ME:
+      return Object.assign({}, state, action.loggedInUser);
+    default:
+      return state
+  }
+};
+
 const reducer = combineReducers({
   products: productReducer,
   reviews: reviewReducer,
-  users: userReducer
+  users: userReducer,
+  loggedInUser: loggedInUserReducer
 });
 
 export default createStore(reducer, applyMiddleware(thunk, loggerMiddleware));
@@ -62,6 +73,11 @@ const _loadUsers = (users) => ({
   type: LOAD_USERS,
   users
 });
+
+ const _getMe = (loggedInUser) => ({
+  type: GET_ME,
+  loggedInUser
+})
 
 //----------------------------------------------------------------------
 
@@ -94,3 +110,16 @@ const loadUsers = () => {
       });
   };
 };
+
+export const getMe = () => dispatch => {
+  return axios.get('/auth/me')
+    .then(res => res.data)
+    .then(loggedInUser => dispatch(_getMe(loggedInUser)))
+    .catch(console.error.bind(console))
+}
+
+export const logout = () => dispatch => {
+  return axios.delete('/auth/logout')
+    .then(() => dispatch(_getMe({loggedInUser: {}})))
+    .catch(console.error.bind(console))
+}

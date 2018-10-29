@@ -6,10 +6,10 @@ const Review = require('./Review');
 const syncAndSeed = () =>
   db.sync({ force: true }).then(() =>
     Promise.all([
-      User.create({ username: 'emily' }),
-      User.create({ username: 'leovanny' }),
-      User.create({ username: 'charlie' }),
-      User.create({ username: 'david' }),
+      User.create({ username: 'emily', email: 'emily@aol.com'}),
+      User.create({ username: 'leovanny',  email: 'leovanny@aol.com'}),
+      User.create({ username: 'charlie' , email: 'charlie@aol.com' }),
+      User.create({ username: 'david',  email: 'david@aol.com' }),
       Review.create({
         text: 'Tihs producct is grate but I thunk im a litle drunk'
       }),

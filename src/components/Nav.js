@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Login from './Login'
+import { logout } from '../store'
 
 const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => {
-  return {};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    handleClick () {
+      dispatch(logout())
+        .then(() => {
+          ownProps.history.push('/')
+        })
+    }
+  };
 };
 
 const Nav = props => {
+  const {handleClick} = props
+
   return (
     <div className="container">
       <div>
-        <Link to="/login">Login</Link>
+        <Login />
       </div>
 
-      <div>Logout</div>
+      <div><button onClick={handleClick}>Logout</button></div>
 
       <div>
         <Link to="/cart">Cart</Link>
@@ -38,9 +49,6 @@ const Nav = props => {
   );
 };
 
-export default Nav;
+export default connect(null, mapDispatchToProps)(Nav) ;
 
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(Nav);*/
+
