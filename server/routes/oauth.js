@@ -10,8 +10,8 @@ router.get('/', passport.authenticate('google', {scope: 'email'}))
 // handles the callback after Google has authenticated the user (GET /auth/google/callback)
 router.get('/callback',
   passport.authenticate('google', {
-    successRedirect: '/home', 
-    failureRedirect: '/'
+    successRedirect: '/', 
+    failureRedirect: '/Login'
   }))
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -24,9 +24,9 @@ passport.use(
   (token, refreshToken, profile, done) => {
     const info = {
         email: profile.emails[0].value,
-        username: profile.displayName[0].value,
-
+        username: profile.displayName,
     }
+    console.log(JSON.stringify(profile))
     User.findOrCreate({
         where: { googleId: profile.id },
         defaults: info

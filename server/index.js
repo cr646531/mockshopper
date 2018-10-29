@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session')
+const passport = require('passport')
+
 const { syncAndSeed } = require('../models/seed');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -25,6 +28,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use('/dist', express.static(path.join(__dirname, '../dist')))
 
+// Session middleware
+app.use(session({
+  secret: 'This is not a very secure secret...',
+  resave: false,
+  saveUninitialized: false
+}))
+
+// Oauth Passport Middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Static Middleware
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });

@@ -29,7 +29,7 @@ userRouter.delete('/:userId', (req, res, next) => {
 
 // create user
 userRouter.post('/', (req, res, next) => {
-  User.create({ username: req.body.username })
+  User.create({ username: req.body.username, email: req.body.email })
     .then(user => res.send(user))
     .catch(next);
 });
