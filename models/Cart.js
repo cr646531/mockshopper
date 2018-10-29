@@ -1,4 +1,4 @@
-const {db} = require('./db');
+const { db } = require('./db');
 const Sequelize = require('sequelize');
 
 const Order = db.define('order', {
@@ -9,12 +9,11 @@ const Order = db.define('order', {
   },
   status: {
     type: Sequelize.ENUM('CART', 'ORDER'),
-    allowNull:false,
+    allowNull: false,
     defaultValue: 'CART'
   }
 });
 
-
 module.exports = {
   Order
-}
+};

@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 dist/main.js
 dist/main.js.map
+env.js
