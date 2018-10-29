@@ -44,7 +44,7 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-app.use('/auth/google', require('./routes/oauth')) //google oauth routing
+app.use('/auth', require('./routes/auth')) //google oauth routing
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/products', productRouter);

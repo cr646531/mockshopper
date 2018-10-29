@@ -10,8 +10,8 @@ router.get('/', passport.authenticate('google', {scope: 'email'}))
 // handles the callback after Google has authenticated the user (GET /auth/google/callback)
 router.get('/callback',
   passport.authenticate('google', {
-    successRedirect: '/', 
-    failureRedirect: '/Login'
+    successRedirect: '/#/profile', 
+    failureRedirect: '/login'
   }))
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -32,6 +32,7 @@ passport.use(
         defaults: info
     })
     .spread((user) => {
+        console.log('user', user)
         done(null,user)
     })
     .catch(done)
