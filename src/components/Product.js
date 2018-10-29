@@ -2,26 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => {
-  const categories = state.products.reduce((agg, product) => {
-    if (!agg.includes(product.category)) {
-      agg.push(product.category);
-      return agg;
-    } else {
-      return agg;
-    }
-  }, []);
-
-  return {
-    products: state.products,
-    categories
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +20,7 @@ class Product extends Component {
                 if (product.category === category) {
                   return (
                     <div key={product.id}>
-                      <Link to={`/products/${product.id}`}>product.name</Link>
+                      <Link to={`/products/${product.id}`}>{product.name}</Link>
                     </div>
                   );
                 }
@@ -53,7 +33,28 @@ class Product extends Component {
   }
 }
 
-export default Product;
+const mapStateToProps = ({ products }) => {
+
+  const categories = products.reduce((agg, product) => {
+    if (!agg.includes(product.category)) {
+      agg.push(product.category);
+      return agg;
+    } else {
+      return agg;
+    }
+  }, []);
+
+  return {
+    products,
+    categories
+  };
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {};
+// };
+
+export default connect(mapStateToProps)(Product);
 
 //export default connect(
 //mapStateToProps,
