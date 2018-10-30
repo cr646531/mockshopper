@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Product extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor() {
+    super();
   }
 
   render() {
     return (
       <div>
+        <br />
         {this.props.categories.map((category, index) => {
           return (
             <div key={index}>
             <br />
-              <h3>Categories:</h3>
               {category}
               <hr />
               <br />
-              <h3>Products:</h3>
               {this.props.products.map(product => {
                 if (product.category === category) {
                   return (
