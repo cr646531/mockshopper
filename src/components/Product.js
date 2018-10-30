@@ -13,14 +13,17 @@ class Product extends Component {
         {this.props.categories.map((category, index) => {
           return (
             <div key={index}>
+            <br />
+              <h3>Categories:</h3>
               {category}
               <hr />
               <br />
+              <h3>Products:</h3>
               {this.props.products.map(product => {
                 if (product.category === category) {
                   return (
                     <div key={product.id}>
-                      <Link to={`/products/${product.id}`}>{product.name}</Link>
+                      <Link to={`/products/${product.id}`} >{product.name}</Link>
                     </div>
                   );
                 }
@@ -50,13 +53,5 @@ const mapStateToProps = ({ products }) => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {};
-// };
 
 export default connect(mapStateToProps)(Product);
-
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(ProductPage);*/
