@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-} from 'reactstrap';
- const mapStateToProps = state => {
-  return {};
-};
- const mapDispatchToProps = dispatch => {
-  return {};
-};
- class NavigationBar extends React.Component {
-  constructor(props) {
-    super(props);
-     this.toggleNavbar = this.toggleNavbar.bind(this);
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
+
+ class NavigationBar extends Component {
+
+  constructor() {
+    super();
     this.state = {
       collapsed: true
     };
+    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
-   toggleNavbar() {
+
+  toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
     });
   }
+
   render() {
     return (
       <div>
@@ -59,8 +49,5 @@ import {
     );
   }
 }
+
 export default NavigationBar;
- //export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(Nav);*/
