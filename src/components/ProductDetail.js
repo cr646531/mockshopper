@@ -1,42 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state, props) => {
-  let student = {};
+class ProductDetail extends Component {
 
-  if (props.match.params.productId) {
-    product = state.products.find(product => {
-      return product.id === props.match.params.productId * 1;
-    });
-  } else {
-    console.log('No product');
+  constructor() {
+    super();
+    this.state = {
+      product: {}
+    }
   }
 
-  return {
-    product
-  };
-};
+  componentDidMount(){
+    const { propId, products } = this.props;
 
-class ProductDetail extends Component {
-  constructor(props) {
-    super(props);
+    products.map(product => {
+      if(propId === product.id){
+        this.setState({
+          product: product
+        });
+      }
+    });
   }
 
   render() {
+
+    const { product }  = this.state;
+
     return (
       <div>
-        <div> {this.props.product.name}</div>
         <hr />
         <br />
-        <div>{this.props.product.description}</div>
+        <div>Name: {product.name}</div>
+        <br />
+        <div>Description: </div>
+        <br />
+        <div> {product.description} </div>
       </div>
     );
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = ({ products }) => {
+  return { 
+    products
+  }
+}
 
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(ProductDetailPage);*/
+export default connect(mapStateToProps)(ProductDetail);

@@ -2,29 +2,29 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
-import Nav from './Nav';
+import NavigationBar from './NavigationBar'
 import Product from './Product';
 import ProductDetail from './ProductDetail';
 import Profile from './Profile';
-import Cart from './Cart.js'
+import Cart from './Cart.js';
 import store, { loadProducts, getMe } from '../store';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.initProducts();
     store.dispatch(getMe())
-     .then(()=> {this.props.history.push('/profile')})
   }
 
   render() {
     return (
       <HashRouter>
         <div>
-          <Route path="/" component={Nav} />
+          <Route path="/" component={NavigationBar} />
           <Switch>
             <Route exact path="/products" component={Product} />
-            <Route path="/products/:productId" component={ProductDetail} />
+            <Route path="/products/:productId" render={ ({ match }) => <ProductDetail propId={ match.params.productId } /> } />
             <Route exact path="/profile" component={Profile} />
 
           </Switch>
@@ -42,17 +42,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(App);
-
-//render(<App />, document.getElementById('root'));
-
-/*const ConnectedApp = connect(*/
-//null,
-//mapDispatchToProps
-//)(App);
-
-//render(
-//<Provider store={store}>
-//<ConnectedApp />
-//</Provider>,
-//document.getElementById('root')
-/*);*/

@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Product extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor() {
+    super();
   }
 
   render() {
     return (
       <div>
+        <br />
         {this.props.categories.map((category, index) => {
           return (
             <div key={index}>
+            <br />
               {category}
               <hr />
               <br />
@@ -20,7 +23,7 @@ class Product extends Component {
                 if (product.category === category) {
                   return (
                     <div key={product.id}>
-                      <Link to={`/products/${product.id}`}>{product.name}</Link>
+                      <Link to={`/products/${product.id}`} >{product.name}</Link>
                     </div>
                   );
                 }
@@ -50,13 +53,5 @@ const mapStateToProps = ({ products }) => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {};
-// };
 
 export default connect(mapStateToProps)(Product);
-
-//export default connect(
-//mapStateToProps,
-//mapDispatchToProps
-/*)(ProductPage);*/
