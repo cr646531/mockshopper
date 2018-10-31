@@ -15,7 +15,6 @@ class App extends Component {
   componentDidMount() {
     this.props.initProducts();
     store.dispatch(getMe())
-     .then(()=> {this.props.history.push('/profile')})
   }
 
   render() {
