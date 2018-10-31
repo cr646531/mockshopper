@@ -19,6 +19,4 @@ const User = db.define('user', {
   googleId: db.Sequelize.STRING
 });
 
-module.exports = {
-  User
-};
+module.exports = User;

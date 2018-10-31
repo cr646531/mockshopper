@@ -1,9 +1,9 @@
-const {db} = require('/db');
-const {Order} = require('/Cart')
-const {LineItem} = require('LineItem.js');
-const {User} = require('/User');
-const {Product} = require('/Products');
-const Review = require('/Review');
+const {db} = require('./db');
+const Order = require('./Cart')
+const LineItem = require('./LineItem');
+const User = require('./User');
+const Product = require('./Product');
+const Review = require('./Review');
 
 
 Review.belongsTo(User);
