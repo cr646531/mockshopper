@@ -10,24 +10,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = (state, props) => {
-  let product = null;
-
-  if (props.productId) {
-    product = state.products.find(product => {
-      return product.id === props.productId;
-    });
-  } else {
-    console.log('No product');
-  }
-
   const currentOrder = state.orders.find(order => order.status === 'CART');
 
   return {
     products: state.products,
     lineItems: state.lineItems,
     currentOrder,
-    auth: state.auth,
-    product
+    auth: state.auth
   };
 };
 
@@ -35,25 +24,45 @@ class ProductDetail extends Component {
   constructor() {
     super();
 
+    this.state = {
+      product: null,
+      loaded: false
+    };
+
     this.addToCart = this.addToCart.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (!this.state.product) {
+      this.setState({ loaded: null });
+    }
+  }
 
-  componentDidUpdate() {
-    console.log(this.props.product);
+  componentDidUpdate(prevProps) {
+    console.log('product on state:');
+    console.log(this.state.product);
+
+    if (!this.state.loaded && this.props.products.length > 0) {
+      let product = null;
+
+      product = this.props.products.find(product => {
+        return product.id === this.props.productId;
+      });
+
+      this.setState({ loaded: true, product });
+    }
   }
 
   addToCart() {
     const productsLineItem = this.props.currentOrder.lineItems.find(
-      lineItem => lineItem.productId === this.props.product.id
+      lineItem => lineItem.productId === this.state.product.id
     );
 
     if (!productsLineItem) {
       this.props.createLineItem({
         orderId: this.props.currentOrder.id,
         quantity: 1,
-        productId: this.props.product.id
+        productId: this.state.product.id
       });
     } else {
       productsLineItem.quantity += 1;
@@ -64,15 +73,15 @@ class ProductDetail extends Component {
   render() {
     return (
       <div>
-        {this.props.product ? (
+        {this.state.product ? (
           <div>
             <hr />
             <br />
-            <div>Name: {this.props.product.name}</div>
+            <div>Name: {this.state.product.name}</div>
             <br />
             <div>Description: </div>
             <br />
-            <div> {this.props.product.description} </div>
+            <div> {this.state.product.description} </div>
             <br />
             <button onClick={this.addToCart}>Add to Cart</button>
           </div>

@@ -15,7 +15,6 @@ class App extends Component {
   componentDidMount() {
     this.props.initProducts();
     this.props.loadOrders();
-
     //    store.dispatch(getMe())
   }
 
