@@ -7,14 +7,16 @@ import Product from './Product';
 import ProductDetail from './ProductDetail';
 import Profile from './Profile';
 import Cart from './Cart.js';
-import store, { loadProducts, getMe } from '../store';
+import store, { loadProducts, getMe, getCreateOrders } from '../store';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.initProducts();
-    store.dispatch(getMe())
+    this.props.loadOrders();
+
+    //    store.dispatch(getMe())
   }
 
   render() {
@@ -24,7 +26,7 @@ class App extends Component {
           <Route path="/" component={NavigationBar} />
           <Switch>
             <Route exact path="/products" component={Product} />
-            <Route path="/products/:productId" render={ ({ match }) => <ProductDetail propId={ match.params.productId } /> } />
+            <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
             <Route exact path="/profile" component={Profile} />
 
           </Switch>
@@ -37,7 +39,8 @@ class App extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return { 
-    initProducts: () => { dispatch(loadProducts()) }
+    initProducts: () =>  dispatch(loadProducts()),
+    loadOrders: () => dispatch(getCreateOrders())
   }
 };
 

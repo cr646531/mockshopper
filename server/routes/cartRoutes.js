@@ -1,7 +1,7 @@
 const express = require('express');
 const cartRouter = express.Router();
-const {Order} = require('../../models/Cart')
-
+const Order = require('../../models/Cart')
+const LineItem = require('../../models/LineItem')
 
 cartRouter.get('/orders', async (req, res, next) => {
   const attr = {
