@@ -1,17 +1,18 @@
 const router = require('express').Router()
 const User = require('../../models/User')
+
 module.exports = router
 
 router.use('/google', require('./oauth'))
 
 const userNotFound = next => {
   const err = new Error('Not found')
-  err.status = 401
+  err.status = 404
   next(err)
 }
 
 router.get('/me', (req, res, next) => {
-  if (!req.user || !req.user.id) {
+  if (!req.user.id) {
     userNotFound(next)
   } else {
     User.findById(req.user.id)
@@ -19,6 +20,36 @@ router.get('/me', (req, res, next) => {
       .catch(next)
   }
 })
+
+router.put('/login', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.body.email,
+        password: req.body.password
+      }
+    })
+    if (user) {
+      req.login(user, (err) => err ? next(err) : res.json(user))
+    } else {
+      const err = new Error('Incorrect email or password!')
+      err.status = 401
+      throw err
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+// router.post('/create_account', async (req, res, next) => {
+//   try {
+//     const user = await User.create(req.body)
+//     req.login(user, err => (err ? next(err) : res.send(user)))
+//   } catch (err) {
+//       next(err)
+//     }
+// })
+
 
 router.delete('/logout', (req, res, next) => {
     req.logout()
