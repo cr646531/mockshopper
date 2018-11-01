@@ -40,18 +40,18 @@ class NavigationBar extends Component {
           </Link>
           <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
           <Collapse isOpen={!this.state.collapsed} navbar>
-            <NavItem>
+            <NavItem onClick={this.toggleNavbar} >
               <Login />
             </NavItem>
             <NavItem onClick={handleClick}>Logout</NavItem>
             <NavItem>
-              <Link to="/products">Products</Link>
+              <Link onClick={this.toggleNavbar} to="/products">Products</Link>
             </NavItem>
             <NavItem>
-              <Link to="/create_account">Create Account</Link>
+              <Link onClick={this.toggleNavbar} to="/create_account">Create Account</Link>
             </NavItem>
             <NavItem>
-              <Link to="/profile">Profile</Link>
+              <Link onClick={this.toggleNavbar} to="/profile">Profile</Link>
             </NavItem>
           </Collapse>
         </Navbar>
