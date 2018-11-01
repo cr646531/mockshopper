@@ -1,5 +1,5 @@
 const  db  = require('./associations');
-const { User } = require('./User');
+const  User  = require('./User');
 const Product = require('./Product');
 const Review = require('./Review');
 
