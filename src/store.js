@@ -10,6 +10,52 @@ const LOAD_REVIEWS = 'LOAD_REVIEWS';
 const LOAD_USERS = 'LOAD_USERS';
 const GET_ME = 'GET_ME'
 
+
+const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
+
+
+export const getCreateOrders = () => {
+  return dispatch => {
+    axios
+      .get('/api/cart/orders')
+      .then(response => dispatch(addOrdersToState(response.data)))
+      .catch(err => console.log(err));
+  };
+};
+
+
+
+
+const addOrdersToState = orders => {
+  return {
+    type: GET_CREATE_ORDER,
+    orders
+  };
+};
+
+
+const orderReducer = (state = [], action) =>{
+
+switch(action.type){
+ case GET_CREATE_ORDER:
+      return Object.assign({}, state, {
+        orders: action.orders
+      });
+
+
+}
+  return state
+}
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------------------------------
 
 const productReducer = (state = [], action) => {
@@ -52,7 +98,8 @@ const reducer = combineReducers({
   products: productReducer,
   reviews: reviewReducer,
   users: userReducer,
-  loggedInUser: loggedInUserReducer
+  loggedInUser: loggedInUserReducer,
+  orders: orderReducer
 });
 
 export default createStore(reducer, applyMiddleware(thunk, loggerMiddleware));
