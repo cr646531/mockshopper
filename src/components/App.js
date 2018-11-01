@@ -27,7 +27,6 @@ class App extends Component {
             <Route exact path="/products" component={Product} />
             <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
             <Route exact path="/profile" component={Profile} />
-
           </Switch>
           <Route exact path='/cart' component={Cart} />
         </div>

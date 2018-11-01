@@ -75,10 +75,8 @@ class ProductDetail extends Component {
             <hr />
             <br />
             <div>Name: {this.state.product.name}</div>
-            <br />
-            <div>Description: </div>
-            <br />
-            <div> {this.state.product.description} </div>
+            <div>Description: {this.state.product.description} </div>
+            <div> Category: {this.state.product.category} </div>
             <br />
             <button onClick={this.addToCart}>Add to Cart</button>
           </div>
