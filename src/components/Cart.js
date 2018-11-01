@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateLineItem } from '../store';
+import { updateLineItem, destroyLineItem } from '../store';
 
 const mapStateToProps = state => {
+  const cart = state.orders.find(order => order.status === 'CART');
+
   return {
     products: state.products,
-    orders: state.orders
+    orders: state.orders,
+    cart
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    createLineItem: lineItem => dispatch(createLineItem(lineItem)),
-    updateLineItem: lineItem => dispatch(updateLineItem(lineItem))
+    updateLineItem: lineItem => dispatch(updateLineItem(lineItem)),
+    destroyLineItem: lineItem => dispatch(destroyLineItem(lineItem))
   };
 };
 
@@ -20,43 +23,27 @@ class Cart extends Component {
   constructor() {
     super();
 
-    this.deleteLineItem = this.deleteLineItem.bind(this);
+    this.destroyLineItem = this.destroyLineItem.bind(this);
     this.addQuantity = this.addQuantity.bind(this);
     this.subtractQuantity = this.subtractQuantity.bind(this);
-
-    this.state = {
-      loaded: false,
-      cart: null
-    };
-
-    this.addQuantity = this.addQuantity.bind(this);
   }
 
-  deleteLineItem() {}
-  subtractQuantity() {}
-
-
-  componentDidMount(){
-    if(this.props.orders.length > 0 && !(this.state.cart)){
-      this.setState({loaded:false})
+  subtractQuantity(lineItem) {
+    if (lineItem.quantity === 1) {
+      this.props.destroyLineItem(lineItem);
+    } else {
+      lineItem.quantity -= 1;
+      this.props.updateLineItem(lineItem);
     }
   }
 
-  componentDidUpdate() {
-    if (!this.state.loaded && this.props.orders.length > 0) {
-      const cart = this.props.orders.find(order => order.status === 'CART');
-
-      this.setState({ loaded: true, cart });
-    }
+  destroyLineItem(lineItem) {
+    this.props.destroyLineItem(lineItem);
   }
 
-  addQuantity(productId) {
-    const productsLineItem = this.state.cart.lineItems.find(
-      lineItem => lineItem.productId === productId
-    );
-
-    productsLineItem.quantity += 1;
-    this.props.updateLineItem(productsLineItem);
+  addQuantity(lineItem) {
+    lineItem.quantity += 1;
+    this.props.updateLineItem(lineItem);
   }
 
   render() {
@@ -67,8 +54,8 @@ class Cart extends Component {
         </div>
         <br />
         <br />
-        {this.state.cart ? (
-          this.state.cart.lineItems.map(lineItem => {
+        {this.props.cart ? (
+          this.props.cart.lineItems.map(lineItem => {
             const lineItemsProduct = this.props.products.find(
               product => product.id === lineItem.productId
             );
@@ -79,13 +66,13 @@ class Cart extends Component {
                   '   Quantity: ' +
                   lineItem.quantity}
                 <br />
-                <button onClick={() => this.addQuantity(lineItemsProduct.id)}>
-                  Add
-                </button>
-                <button onClick={() => this.subtractQuantity()}>
+                <button onClick={() => this.addQuantity(lineItem)}>Add</button>
+                <button onClick={() => this.subtractQuantity(lineItem)}>
                   Subtract
                 </button>
-                <button onClick={this.deleteLineItem}>Delete</button>
+                <button onClick={() => this.destroyLineItem(lineItem)}>
+                  Delete
+                </button>
               </div>
             );
           })

@@ -9,60 +9,9 @@ const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
 const LOAD_USERS = 'LOAD_USERS';
 const GET_ME = 'GET_ME';
-
 const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
-const CREATE_LINE_ITEM = 'CREATE_LINE_ITEM';
-const UPDATE_LINE_ITEM = 'UPDATE_LINE_ITEM';
 
-const updateLineItemOnState = lineItem => {
-  return {
-    type: UPDATE_LINE_ITEM,
-    lineItem
-  };
-};
-
-export const updateLineItem = lineItem => {
-  return dispatch => {
-    axios
-      .put(`/api/lineItems/${lineItem.id}/order/${lineItem.orderId}`, lineItem)
-      .then(() => dispatch(getCreateOrders()))
-      .catch(err => console.log(err));
-  };
-};
-
-
-
-const addLineItemToStore = lineItem => {
-  return {
-    type: CREATE_LINE_ITEM,
-    lineItem
-  };
-};
-
-export const createLineItem = lineItem => {
-  return dispatch => {
-    axios
-      .post(`/api/lineItems/order/${lineItem.orderId}`, lineItem)
-      .then(() => dispatch(getCreateOrders()))
-      .then(err => console.log(err));
-  };
-};
-
-export const getCreateOrders = () => {
-  return dispatch => {
-    axios
-      .get('/api/cart/orders')
-      .then(response => dispatch(addOrdersToState(response.data)))
-      .catch(err => console.log(err));
-  };
-};
-
-const addOrdersToState = orders => {
-  return {
-    type: GET_CREATE_ORDER,
-    orders
-  };
-};
+//----------------------------------------------------------------------
 
 const orderReducer = (state = [], action) => {
   switch (action.type) {
@@ -71,8 +20,6 @@ const orderReducer = (state = [], action) => {
   }
   return state;
 };
-
-//----------------------------------------------------------------------
 
 const productReducer = (state = [], action) => {
   switch (action.type) {
@@ -142,7 +89,50 @@ const _getMe = loggedInUser => ({
   loggedInUser
 });
 
+const addOrdersToState = orders => {
+  return {
+    type: GET_CREATE_ORDER,
+    orders
+  };
+};
+
 //----------------------------------------------------------------------
+export const destroyLineItem = lineItem => {
+  return dispatch => {
+    axios
+      .delete(`/api/lineItems/${lineItem.id}/order/${lineItem.orderId}`)
+      .then(() => dispatch(getCreateOrders()))
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateLineItem = lineItem => {
+  return dispatch => {
+    axios
+      .put(`/api/lineItems/${lineItem.id}/order/${lineItem.orderId}`, lineItem)
+      .then(() => dispatch(getCreateOrders()))
+      .catch(err => console.log(err));
+  };
+};
+
+export const createLineItem = lineItem => {
+  return dispatch => {
+    axios
+      .post(`/api/lineItems/order/${lineItem.orderId}`, lineItem)
+      .then(() => dispatch(getCreateOrders()))
+      .then(err => console.log(err));
+  };
+};
+
+export const getCreateOrders = () => {
+  return dispatch => {
+    axios
+      .get('/api/cart/orders')
+      .then(response => dispatch(addOrdersToState(response.data)))
+      .catch(err => console.log(err));
+  };
+};
+//---------------------------------------------------------------
 
 export const loadProducts = () => {
   return dispatch => {

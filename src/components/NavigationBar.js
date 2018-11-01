@@ -35,13 +35,9 @@ class NavigationBar extends Component {
       <div>
         <Navbar color="light" light expands="md">
           <NavbarBrand> Lights-Out Brewery </NavbarBrand>
-
-            <Link to='/cart'> 
-
-          
-              <Cart />
-
-            </Link>
+          <Link to="/cart">
+            <Cart />
+          </Link>
           <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <NavItem>
