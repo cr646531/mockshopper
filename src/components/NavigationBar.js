@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
-import Login from './Login'
+import Login from './OauthLogin'
 import { logout } from '../store'
 
 
@@ -34,7 +34,7 @@ import { logout } from '../store'
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <Login />
+                <Link to="/login">Login</Link>
               </NavItem>
                <NavItem onClick={handleClick}>Logout</NavItem>
                <NavItem>
@@ -57,6 +57,12 @@ import { logout } from '../store'
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: !!state.loggedInUser.id
+  }
+}
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleClick () {
@@ -68,4 +74,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect (null, mapDispatchToProps)(NavigationBar);
+export default connect (mapStateToProps, mapDispatchToProps)(NavigationBar);
