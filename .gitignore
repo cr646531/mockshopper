@@ -1,7 +1,6 @@
-
 node_modules
 .DS_Store
 package-lock.json
 dist/main.js
-env.js
 dist/main.js.map
+env.js
