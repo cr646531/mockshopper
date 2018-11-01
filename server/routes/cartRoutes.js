@@ -1,6 +1,6 @@
 const express = require('express');
 const cartRouter = express.Router();
-const {Order} = require('../../models/Cart')
+const Order = require('../../models/Cart')
 
 
 cartRouter.get('/orders', async (req, res, next) => {
