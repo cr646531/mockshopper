@@ -16,7 +16,7 @@ const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
 const orderReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CREATE_ORDER:
-      return action.orders;
+      return action.orders
   }
   return state;
 };

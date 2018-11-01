@@ -40,9 +40,7 @@ class ProductDetail extends Component {
 
   componentDidUpdate(prevProps) {
     if (!this.state.loaded && this.props.products.length > 0) {
-      let product = null;
-
-      product = this.props.products.find(product => {
+      const product = this.props.products.find(product => {
         return product.id === this.props.productId;
       });
 

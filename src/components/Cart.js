@@ -5,6 +5,7 @@ import { updateLineItem, destroyLineItem } from '../store';
 const mapStateToProps = state => {
   const cart = state.orders.find(order => order.status === 'CART');
 
+   
   return {
     products: state.products,
     orders: state.orders,
@@ -47,6 +48,9 @@ class Cart extends Component {
   }
 
   render() {
+
+    
+   
     return (
       <div>
         <div align="center">
