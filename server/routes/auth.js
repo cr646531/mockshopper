@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../../models/User')
+const User = require('../../models/User')
 module.exports = router
 
 router.use('/google', require('./oauth'))
@@ -11,6 +11,7 @@ const userNotFound = next => {
 }
 
 router.get('/me', (req, res, next) => {
+  console.log('HELLLLLLLOOOOOO', req)
   if (!req.user.id) {
     userNotFound(next)
   } else {
