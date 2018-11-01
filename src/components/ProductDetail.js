@@ -34,15 +34,17 @@ class ProductDetail extends Component {
 
   componentDidMount() {
     if (!this.state.product) {
-      this.setState({ loaded: null });
+      this.setState({ loaded: false });
     }
   }
 
   componentDidUpdate(prevProps) {
-    console.log('product on state:');
-    console.log(this.state.product);
+    /*console.log('product on state:');*/
+    //console.log(this.state.product);
+    //console.log(this.props.products)
+    //console.log(this.props.productId)
 
-    if (!this.state.loaded && this.props.products.length > 0) {
+    if ((!this.state.loaded) && this.props.products.length > 0) {
       let product = null;
 
       product = this.props.products.find(product => {

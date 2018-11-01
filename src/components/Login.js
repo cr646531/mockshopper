@@ -1,12 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Login = (props) => {
-  console.log('imported')
-  return (
-    <form method='get' action='/auth/google'>
-      <button type='submit'>Login with Google</button>
-    </form>
-  )
-}
+const Login = props => {
+  return <Link to="/auth/google">Login with Google</Link>;
+};
 
-export default Login
+export default Login;
