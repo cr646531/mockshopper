@@ -115,7 +115,12 @@ export const getMe = () => dispatch => {
   return axios.get('/auth/me')
     .then(res => res.data)
     .then(loggedInUser => dispatch(_getMe(loggedInUser)))
-    .catch(console.error.bind(console))
+    .catch((error) => {
+     // User not found, so they're logged out. Set loggedInUser to empty.
+      if(error.response.status === 401){
+        dispatch(_getMe({}))
+      }
+    })
 }
 
 export const logout = () => dispatch => {

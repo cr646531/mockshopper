@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const passport = require('passport')
-const { User } = require('../../models/User')
+const User = require('../../models/User')
 const { googleClientID, googleClientSecret } = require('../../env')
 module.exports = router
 
