@@ -10,7 +10,6 @@ class Review extends Component {
       product: {},
       reviews: []
     }
-    this.findProduct = this.findProduct.bind(this);
     this.findReviews = this.findReviews.bind(this);
   }
 
