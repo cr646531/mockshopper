@@ -16,7 +16,7 @@ class App extends Component {
   componentDidMount() {
     this.props.initProducts();
     this.props.loadOrders();
-    this.props.loggedInUser.id ? this.props.initUser() : null
+    this.props.loggedInUser ? this.props.initUser() : null
 
   }
 
