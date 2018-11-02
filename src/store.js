@@ -102,8 +102,8 @@ const addOrdersToState = orders => {
 
 const _createProduct = (product) => {
   return {
-    type: CREATE_PRODUCT,
-    product
+  type: CREATE_PRODUCT,
+  product
   }
 };
 
@@ -159,15 +159,15 @@ export const loadProducts = () => {
 export const createProduct = (product) => {
   return dispatch => {
     return axios
-      .post('/api/products/', product)
+      .post('/api/products/')
       .then(response => response.data)
       .then(product => {
-        dispatch(_createProduct(product));
+        dispatch(_createProduct(product));w
       });
   };
 };
 
-const loadReviews = () => {
+export const loadReviews = () => {
   return dispatch => {
     return axios
       .get('/api/reviews/')

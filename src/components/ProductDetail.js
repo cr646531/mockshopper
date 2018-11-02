@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createLineItem, updateLineItem } from '../store';
+import Review from './Review';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -75,6 +76,9 @@ class ProductDetail extends Component {
             <div>Name: {this.state.product.name}</div>
             <div>Description: {this.state.product.description} </div>
             <div> Category: {this.state.product.category} </div>
+            <div> Reviews: 
+              <Review productId={this.props.productId} />
+            </div>
             <br />
             <button onClick={this.addToCart}>Add to Cart</button>
           </div>
