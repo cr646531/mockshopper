@@ -47,7 +47,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return { 
 
-    loadOrders: () => dispatch(getCreateOrders())
+    loadOrders: () => dispatch(getCreateOrders()),
     initProducts: () => { dispatch(loadProducts()) },
     initUser: () => { 
       dispatch(getMe())
