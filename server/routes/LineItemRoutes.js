@@ -8,7 +8,7 @@ lineItemRouter.get('/', (req, res, next) => {
     .catch(next);
 });
 
-lineItemRouter.delete('/:lineItemId/orders/:orderId', (req, res, next) => {
+lineItemRouter.delete('/:lineItemId/order/:orderId', (req, res, next) => {
   LineItem.destroy({
     where: {
       orderId: req.params.orderId,
@@ -19,8 +19,8 @@ lineItemRouter.delete('/:lineItemId/orders/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-lineItemRouter.put('/:lineItemId/orders/:orderId', (req, res, next) => {
-  LineItem.findById(req.params.LineItemid)
+lineItemRouter.put('/:lineItemId/order/:orderId', (req, res, next) => {
+  LineItem.findByPk(req.params.lineItemId)
     .then(lineItem => lineItem.update(req.body))
     .then(lineItem => res.send(lineItem))
     .catch(next);

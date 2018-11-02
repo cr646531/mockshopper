@@ -1,49 +1,90 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createLineItem, updateLineItem } from '../store';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createLineItem: lineItem => dispatch(createLineItem(lineItem)),
+    updateLineItem: lineItem => dispatch(updateLineItem(lineItem))
+  };
+};
+
+const mapStateToProps = (state, props) => {
+  const currentOrder = state.orders.find(order => order.status === 'CART');
+
+  return {
+    products: state.products,
+    lineItems: state.lineItems,
+    currentOrder,
+    auth: state.auth
+  };
+};
 
 class ProductDetail extends Component {
-
   constructor() {
     super();
+
     this.state = {
-      product: {}
+      product: null,
+      loaded: false
+    };
+
+    this.addToCart = this.addToCart.bind(this);
+  }
+
+  componentDidMount() {
+    if (!this.state.product) {
+      this.setState({ loaded: false });
     }
   }
 
-  componentDidMount(){
-    const { propId, products } = this.props;
+  componentDidUpdate(prevProps) {
+    if (!this.state.loaded && this.props.products.length > 0) {
+      const product = this.props.products.find(product => {
+        return product.id === this.props.productId;
+      });
 
-    products.map(product => {
-      if(propId === product.id){
-        this.setState({
-          product: product
-        });
-      }
-    });
+      this.setState({ loaded: true, product });
+    }
+  }
+
+  addToCart() {
+    const productsLineItem = this.props.currentOrder.lineItems.find(
+      lineItem => lineItem.productId === this.state.product.id
+    );
+
+    if (!productsLineItem) {
+      this.props.createLineItem({
+        orderId: this.props.currentOrder.id,
+        quantity: 1,
+        productId: this.state.product.id
+      });
+    } else {
+      productsLineItem.quantity += 1;
+      this.props.updateLineItem(productsLineItem);
+    }
   }
 
   render() {
-
-    const { product }  = this.state;
-
     return (
       <div>
-        <hr />
-        <br />
-        <div>Name: {product.name}</div>
-        <br />
-        <div>Description: </div>
-        <br />
-        <div> {product.description} </div>
+        {this.state.product ? (
+          <div>
+            <hr />
+            <br />
+            <div>Name: {this.state.product.name}</div>
+            <div>Description: {this.state.product.description} </div>
+            <div> Category: {this.state.product.category} </div>
+            <br />
+            <button onClick={this.addToCart}>Add to Cart</button>
+          </div>
+        ) : null}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ products }) => {
-  return { 
-    products
-  }
-}
-
-export default connect(mapStateToProps)(ProductDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductDetail);

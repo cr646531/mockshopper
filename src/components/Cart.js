@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updateLineItem, destroyLineItem } from '../store';
 
 const mapStateToProps = state => {
   const cart = state.orders.find(order => order.status === 'CART');
 
+   
   return {
     products: state.products,
+    orders: state.orders,
     cart
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateLineItem: lineItem => dispatch(updateLineItem(lineItem)),
+    destroyLineItem: lineItem => dispatch(destroyLineItem(lineItem))
   };
 };
 
@@ -14,16 +24,33 @@ class Cart extends Component {
   constructor() {
     super();
 
-    this.deleteLineItem = this.deleteLineItem.bind(this);
+    this.destroyLineItem = this.destroyLineItem.bind(this);
     this.addQuantity = this.addQuantity.bind(this);
     this.subtractQuantity = this.subtractQuantity.bind(this);
   }
 
-  deleteLineItem() {}
-  addQuantity() {}
-  subtractQuantity() {}
+  subtractQuantity(lineItem) {
+    if (lineItem.quantity === 1) {
+      this.props.destroyLineItem(lineItem);
+    } else {
+      lineItem.quantity -= 1;
+      this.props.updateLineItem(lineItem);
+    }
+  }
+
+  destroyLineItem(lineItem) {
+    this.props.destroyLineItem(lineItem);
+  }
+
+  addQuantity(lineItem) {
+    lineItem.quantity += 1;
+    this.props.updateLineItem(lineItem);
+  }
 
   render() {
+
+    
+   
     return (
       <div>
         <div align="center">
@@ -31,30 +58,38 @@ class Cart extends Component {
         </div>
         <br />
         <br />
-        {this.props.cart
-          ? this.props.cart.lineItems.map(lineItem => {
-              const lineItemsProduct = this.props.products.find(
-                product => product.id === lineItem.productId
-              );
-               return (
-                <div key={lineItem.id} align="center">
-                  {'Product: ' +
-                    lineItemsProduct.name +
-                    '   Quantity: ' +
-                    lineItem.quantity}
-                  <button onClick={() => this.addQuantity()}>Subtract</button>
-                  <button onClick={() => this.subtractQuantity()}>Add</button>
-                  <button onClick={this.deleteLineItem}>
-                    DELETE LINE ITEM
-                  </button>
-                </div>
-              );
-            })
-            :<div> Your cart is empty!</div>}
+        {this.props.cart ? (
+          this.props.cart.lineItems.map(lineItem => {
+            const lineItemsProduct = this.props.products.find(
+              product => product.id === lineItem.productId
+            );
+            return (
+              <div key={lineItem.id} align="center">
+                {'Product: ' +
+                  lineItemsProduct.name +
+                  '   Quantity: ' +
+                  lineItem.quantity}
+                <br />
+                <button onClick={() => this.addQuantity(lineItem)}>Add</button>
+                <button onClick={() => this.subtractQuantity(lineItem)}>
+                  Subtract
+                </button>
+                <button onClick={() => this.destroyLineItem(lineItem)}>
+                  Delete
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <div> Your cart is empty!</div>
+        )}
         <br />
       </div>
     );
   }
 }
 
-export default Cart;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
