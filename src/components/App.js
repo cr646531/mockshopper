@@ -9,13 +9,15 @@ import Profile from './Profile';
 import Cart from './Cart.js';
 import store, { loadProducts, getMe, getCreateOrders } from '../store';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { CreateAccount, Login } from './Login';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.initProducts();
+
     this.props.loadOrders();
-    //    store.dispatch(getMe())
+    this.props.initUser()
   }
 
   render() {
@@ -27,6 +29,8 @@ class App extends Component {
             <Route exact path="/products" component={Product} />
             <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
             <Route exact path="/profile" component={Profile} />
+            <Route path="/create_account" component={CreateAccount} />
+            <Route path="/login" component={Login} />
           </Switch>
           <Route exact path='/cart' component={Cart} />
         </div>
@@ -35,11 +39,21 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = state => {
+  return {
+    loggedInUser: state.loggedInUser
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
   return { 
-    initProducts: () =>  dispatch(loadProducts()),
+
     loadOrders: () => dispatch(getCreateOrders())
+    initProducts: () => { dispatch(loadProducts()) },
+    initUser: () => { 
+      dispatch(getMe())
+    } 
   }
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+

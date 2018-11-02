@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem
-} from 'reactstrap';
-import Login from './Login';
-import { logout } from '../store';
+
+import { connect } from 'react-redux'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import Login from './OauthLogin'
+import { logout } from '../store'
 import { Cart } from 'react-bytesize-icons';
+
+class NavigationBar extends Component {
+
 
 class NavigationBar extends Component {
   constructor() {
@@ -40,8 +37,9 @@ class NavigationBar extends Component {
           </Link>
           <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
           <Collapse isOpen={!this.state.collapsed} navbar>
-            <NavItem onClick={this.toggleNavbar} >
-              <Login />
+
+              <NavItem onClick={this.toggleNavbar} >
+              <Link to="/login">Login</Link>
             </NavItem>
             <NavItem onClick={handleClick}>Logout</NavItem>
             <NavItem>
@@ -60,6 +58,12 @@ class NavigationBar extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: !!state.loggedInUser.id
+  }
+}
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleClick() {
@@ -70,7 +74,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
+
 export default connect(
   null,
   mapDispatchToProps
 )(NavigationBar);
+

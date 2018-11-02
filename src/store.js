@@ -51,10 +51,10 @@ const userReducer = (state = [], action) => {
 const loggedInUserReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ME:
-      return Object.assign({}, state, action.loggedInUser);
-    default:
-      return state;
-  }
+      state = action.loggedInUser;
+      break;
+    }
+    return state
 };
 
 const reducer = combineReducers({
@@ -167,17 +167,31 @@ const loadUsers = () => {
   };
 };
 
+
+// gets logged in user
 export const getMe = () => dispatch => {
   return axios
     .get('/auth/me')
     .then(res => res.data)
-    .then(loggedInUser => dispatch(_getMe(loggedInUser)))
-    .catch(console.error.bind(console));
-};
+
+    .then(loggedInUser => {
+      console.log("USER",loggedInUser)
+      dispatch(_getMe(loggedInUser))
+    })
+    .catch(error => console.log(error))
+}
+
+
+//authorizes user
+export const login = (credentials) => dispatch => {
+    return axios.put('/auth/login', credentials)
+    .then(res => res.data)
+    .then( (loggedInUser) => dispatch(getMe(loggedInUser)))
+  }
+
 
 export const logout = () => dispatch => {
-  return axios
-    .delete('/auth/logout')
-    .then(() => dispatch(_getMe({ loggedInUser: {} })))
-    .catch(console.error.bind(console));
-};
+  return axios.delete('/auth/logout')
+    .then(() => dispatch(_getMe({})))
+    .catch(console.error.bind(console))
+}

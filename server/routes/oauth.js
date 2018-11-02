@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const passport = require('passport')
-const { User } = require('../../models/User')
+const User = require('../../models/User')
 const { googleClientID, googleClientSecret } = require('../../env')
 module.exports = router
 
@@ -10,7 +10,7 @@ router.get('/', passport.authenticate('google', {scope: 'email'}))
 // handles the callback after Google has authenticated the user (GET /auth/google/callback)
 router.get('/callback',
   passport.authenticate('google', {
-    successRedirect: '/#/profile', 
+    successRedirect: '/#/profile',
     failureRedirect: '/login'
   }))
 
@@ -41,7 +41,7 @@ passport.use(
 passport.serializeUser((user, done) => {
     done(null, user.id)
 });
-  
+
 passport.deserializeUser((id, done) => {
     User.findById(id)
     .then((user) => done(null, user))
