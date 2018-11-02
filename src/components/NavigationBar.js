@@ -8,9 +8,6 @@ import { logout } from '../store'
 import { Cart } from 'react-bytesize-icons';
 
 class NavigationBar extends Component {
-
-
-class NavigationBar extends Component {
   constructor() {
     super();
     this.state = {
