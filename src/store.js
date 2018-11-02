@@ -10,6 +10,7 @@ const LOAD_REVIEWS = 'LOAD_REVIEWS';
 const LOAD_USERS = 'LOAD_USERS';
 const GET_ME = 'GET_ME';
 const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
+const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
 //----------------------------------------------------------------------
 
@@ -25,6 +26,9 @@ const productReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
       state = action.products;
+      break;
+    case CREATE_PRODUCT:
+      state = [...state].push(action.product);
       break;
   }
   return state;
@@ -96,6 +100,13 @@ const addOrdersToState = orders => {
   };
 };
 
+const _createProduct = (product) => {
+  return {
+    type: CREATE_PRODUCT,
+    product
+  }
+};
+
 //----------------------------------------------------------------------
 export const destroyLineItem = lineItem => {
   return dispatch => {
@@ -141,6 +152,17 @@ export const loadProducts = () => {
       .then(response => response.data)
       .then(products => {
         dispatch(_loadProducts(products));
+      });
+  };
+};
+
+export const createProduct = (product) => {
+  return dispatch => {
+    return axios
+      .post('/api/products/', product)
+      .then(response => response.data)
+      .then(product => {
+        dispatch(_createProduct(product));
       });
   };
 };

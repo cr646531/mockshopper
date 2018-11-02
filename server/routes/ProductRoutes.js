@@ -9,6 +9,12 @@ productRouter.get('/', (req, res, next) => {
     .catch(next);
 });
 
+productRouter.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(product => res.send(product))
+    .catch(next);
+});
+
 productRouter.get('/with_reviews/', (req, res, next) => {
   Product.findAll({
     include: [{ model: Review }]

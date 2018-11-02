@@ -43,6 +43,9 @@ class NavigationBar extends Component {
               <Link onClick={this.toggleNavbar} to="/products">Products</Link>
             </NavItem>
             <NavItem>
+              <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
+            </NavItem>
+            <NavItem>
               <Link onClick={this.toggleNavbar} to="/create_account">Create Account</Link>
             </NavItem>
             <NavItem>
