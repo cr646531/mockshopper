@@ -15,9 +15,9 @@ class App extends Component {
 
   componentDidMount() {
     this.props.initProducts();
-
     this.props.loadOrders();
-    this.props.initUser()
+    this.props.loggedInUser.id ? this.props.initUser() : null
+
   }
 
   render() {
@@ -41,7 +41,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedInUser: state.loggedInUser
+    loggedInUser: !!state.loggedInUser
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -49,9 +49,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     loadOrders: () => dispatch(getCreateOrders()),
     initProducts: () => { dispatch(loadProducts()) },
-    initUser: () => { 
-      dispatch(getMe())
-    } 
+    initUser: () => { dispatch(getMe())} 
   }
 };
 

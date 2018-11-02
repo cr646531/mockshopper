@@ -5,14 +5,16 @@ module.exports = router
 
 router.use('/google', require('./oauth'))
 
-const userNotFound = next => {
-  const err = new Error('Not found')
+
+//do we even need this? 
+const userNotFound = (next) => {
+  const err = new Error('user not signed in')
   err.status = 404
   next(err)
 }
 
 router.get('/me', (req, res, next) => {
-  if (!req.user.id) {
+  if (!req.user || !req.user.id) { //defensive, not throwing error when not signed in? 
     userNotFound(next)
   } else {
     User.findById(req.user.id)
