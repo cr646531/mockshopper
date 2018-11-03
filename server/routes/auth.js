@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const User = require('../models/User')
+const { User } = require('../models/index')
 
 module.exports = router
 
@@ -10,7 +10,7 @@ router.use('/google', require('./oauth'))
 const userNotFound = (next) => {
   const err = new Error('user not signed in')
   err.status = 404
- // next(err)
+  next(err)
 }
 
 router.get('/me', (req, res, next) => {
