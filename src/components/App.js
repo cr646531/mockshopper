@@ -8,17 +8,19 @@ import ProductDetail from './ProductDetail';
 import Profile from './Profile';
 import Cart from './Cart.js';
 import ProductForm from './ProductForm.js';
-import store, { loadProducts, loadReviews, getMe, getCreateOrders } from '../store';
+import store, { loadUsers, loadProducts, loadReviews, getMe, getCreateOrders } from '../store';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { CreateAccount, Login } from './Login';
 
 class App extends Component {
 
   componentDidMount() {
+
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();
-    this.props.loggedIn ? this.props.initUser() : null
+    this.props.loadUsers();
+    this.props.loggedInUser ? this.props.initUser() : null
 
   }
 
@@ -44,18 +46,18 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: !!state.loggedInUser || !!!!state.loggedInUser.id
+    loggedInUser: state.loggedInUser
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return { 
+  return {
 
     loadOrders: () => dispatch(getCreateOrders()),
     loadReviews: () => dispatch(loadReviews()),
+    loadUsers: () => dispatch(loadUsers()),
     initProducts: () => { dispatch(loadProducts()) },
-    initUser: () => { dispatch(getMe())} 
+    initUser: () => { dispatch(getMe())}
   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

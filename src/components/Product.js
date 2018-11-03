@@ -8,8 +8,10 @@ class Product extends Component {
     super();
     this.state = {
       category:'All',
+      search:''
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   render() {
@@ -17,7 +19,7 @@ class Product extends Component {
     return (
       <div>
       <div>
-        <form>
+        <form id='filterForm'>
           <label>Filter: </label>
           <select onChange={this.handleChange}>
             <option value='All'> All </option>
@@ -29,39 +31,60 @@ class Product extends Component {
           </select>
         </form>
       </div>
+      <div>
+        <form id='searchFrom'>
+          <label> Search: </label>
+          <input type='text' name='search' vlaue={this.state.search} onChange={this.handleSearch}/>
+          <button>find</button>
+        </form>
+      </div>
 
       <div>
         <br />
-        {this.props.categories.map((category, index) => {
-          if(category === this.state.category || this.state.category === 'All') {
-          return (
-            <div key={index}>
-            <br />
-              {category}
-              <hr />
+        {this.state.search === '' ? ( //jsx condition rendering
+          this.props.categories.map((category, index) => {
+            if(category === this.state.category || this.state.category === 'All') {
+            return (
+              <div key={index}>
               <br />
-              {this.props.products.map(product => {
-                  if (product.category === this.state.category) {
-                  return (
-                    <div key={product.id}>
-                      <Link to={`/products/${product.id}`} >{product.name}</Link>
-                    </div>
-                  );
-                }
-                if(this.state.category === 'All') {
-                  if(product.category === category) {
+                {category}
+                <hr />
+                <br />
+                {this.props.products.map(product => {
+                    if (product.category === this.state.category) {
                     return (
                       <div key={product.id}>
                         <Link to={`/products/${product.id}`} >{product.name}</Link>
                       </div>
                     );
                   }
-                }
-              })}
-            </div>
-          );
-        }
-        })}
+                  if(this.state.category === 'All') {
+                    if(product.category === category) {
+                      return (
+                        <div key={product.id}>
+                          <Link to={`/products/${product.id}`} >{product.name}</Link>
+                        </div>
+                      );
+                    }
+                  }
+                })}
+              </div>
+            );
+          }
+          })
+        ) : ( // terenary expression
+          this.props.products.map(product => {
+            if(product.name.includes(this.state.search)){
+              return(
+                <div key={product.id}>
+                  <Link to={`/products/${product.id}`} >{product.name}</Link>
+                </div>
+              )
+            }
+          })
+        )}
+
+
       </div>
       </div>
     );
@@ -72,7 +95,14 @@ class Product extends Component {
     this.setState({
       category: event.target.value
     });
-    console.log(this.state)
+
+  }
+
+  handleSearch(event) {
+    this.setState({
+      search: event.target.value
+    });
+    console.log(this.state.search)
   }
 
 }
