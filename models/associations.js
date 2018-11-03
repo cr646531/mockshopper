@@ -8,7 +8,7 @@ const Review = require('./Review');
 
 Review.belongsTo(User);
 User.hasMany(Review);
-Product.hasMany(Review);
+Product.hasMany(Review, { as: 'Reviews' });
 
 Order.hasMany(LineItem);
 Order.belongsTo(User)

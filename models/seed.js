@@ -14,11 +14,22 @@ const syncAndSeed = () =>
       Review.create({
         text: 'Tihs producct is grate but I thunk im a litle drunk'
       }),
+      Review.create({
+        text: 'I had a whole 12 pack last night. I feel like trash right now.'
+      }),
+      Review.create({
+        text: "The finest beer I've ever had!"
+      }),
       Product.create({
         name: 'Stella',
         description: `Stella Artois (/ˈstɛlə ɑːrˈtwɑː/ STEL-ə ar-TWAH) is a Belgian pilsner of between 4.8 and 5.2% ABV which was first brewed by Brouwerij Artois (the Artois Brewery) in Leuven, Belgium, in 1926. Since 2008, a 4% ABV version has also been sold in Britain, Ireland, Canada and New Zealand. Stella Artois is now owned by Interbrew International B.V. which is a subsidiary of the world's largest brewer, Anheuser-Busch InBev SA/NV.`,
         category: 'Pilsner'
-      }),
+      })
+        .then(product => {
+          product.setReviews(1);
+          product.setReviews(2);
+          product.setReviews(3);
+        }),
       Product.create({
         name: 'Duff Beer',
         description: `Simpsons reference.`,
