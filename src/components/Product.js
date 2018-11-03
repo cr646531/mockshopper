@@ -41,11 +41,22 @@ class Product extends Component {
               <hr />
               <br />
               {this.props.products.map(product => {
+                  if (product.category === this.state.category) {
                   return (
                     <div key={product.id}>
                       <Link to={`/products/${product.id}`} >{product.name}</Link>
                     </div>
                   );
+                }
+                if(this.state.category === 'All') {
+                  if(product.category === category) {
+                    return (
+                      <div key={product.id}>
+                        <Link to={`/products/${product.id}`} >{product.name}</Link>
+                      </div>
+                    );
+                  }
+                }
               })}
             </div>
           );
