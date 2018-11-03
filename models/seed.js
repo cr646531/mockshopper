@@ -10,9 +10,9 @@ try {
 
     const [Emily, Leovanny, Charlie, David] = await Promise.all([
         User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok'}),
-        User.create({ username: 'leovanny',  email: 'leovanny@aol.com'}),
-        User.create({ username: 'charlie' , email: 'charlie@aol.com' }),
-        User.create({ username: 'david',  email: 'david@aol.com' })
+        User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
+        User.create({ username: 'charlie' , email: 'charlie@aol.com', password: 'charlie'}),
+        User.create({ username: 'david',  email: 'david@aol.com', password: 'david' })
     ])
 
     const [review1, review2, review3] = await Promise.all([
