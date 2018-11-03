@@ -11,15 +11,15 @@ const User = db.define('user', {
   },
   username: {
     type: db.Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
   },
   password: {
     type: db.Sequelize.STRING,
   },
-  googleId: db.Sequelize.STRING
+  googleId: db.Sequelize.STRING,
+  admin: {
+    type: db.Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 });
 
 
