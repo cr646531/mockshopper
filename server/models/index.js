@@ -1,8 +1,21 @@
-
-const  db  = require('./associations');
-const  User  = require('./User');
+const db = require('./db')
+const User  = require('./User');
+const Order = require('./Cart');
 const Product = require('./Product');
 const Review = require('./Review');
+const LineItem = require('./LineItem')
+
+
+Review.belongsTo(User);
+User.hasMany(Review);
+Product.hasMany(Review, { as: 'Reviews' });
+
+Order.hasMany(LineItem);
+Order.belongsTo(User)
+
+LineItem.belongsTo(Order);
+LineItem.belongsTo(Product)
+
 
 const syncAndSeed = async () => {
 try {
@@ -27,7 +40,7 @@ try {
         })
     ])
     
-    const [Stella, Duff, Alamo, Buzz, Benderbrau,] = await Promise.all([
+    const [Stella, Duff, Alamo, Buzz, Benderbrau] = await Promise.all([
         Product.create({
           name: 'Stella',
           description: `Stella Artois (/ˈstɛlə ɑːrˈtwɑː/ STEL-ə ar-TWAH) is a Belgian pilsner of between 4.8 and 5.2% ABV which was first brewed by Brouwerij Artois (the Artois Brewery) in Leuven, Belgium, in 1926. Since 2008, a 4% ABV version has also been sold in Britain, Ireland, Canada and New Zealand. Stella Artois is now owned by Interbrew International B.V. which is a subsidiary of the world's largest brewer, Anheuser-Busch InBev SA/NV.`,
@@ -75,4 +88,12 @@ try {
 
 }
 
-module.exports = { syncAndSeed };
+module.exports = { 
+    syncAndSeed,
+    db, 
+    User, 
+    Product, 
+    Review, 
+    LineItem,
+    Order
+ };

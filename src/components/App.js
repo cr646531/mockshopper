@@ -15,7 +15,6 @@ import { CreateAccount, Login } from './Login';
 class App extends Component {
 
   componentDidMount() {
-
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();

@@ -17,7 +17,7 @@ const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const orderReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CREATE_ORDER:
-      return action.orders
+      return action.orders;
   }
   return state;
 };
@@ -28,7 +28,7 @@ const productReducer = (state = [], action) => {
       state = action.products;
       break;
     case CREATE_PRODUCT:
-      state = [...state].push(action.product);
+      state = [...state, action.product];
       break;
   }
   return state;
@@ -57,8 +57,8 @@ const loggedInUserReducer = (state = {}, action) => {
     case GET_ME:
       state = action.loggedInUser;
       break;
-    }
-    return state
+  }
+  return state;
 };
 
 const reducer = combineReducers({
@@ -100,11 +100,11 @@ const addOrdersToState = orders => {
   };
 };
 
-const _createProduct = (product) => {
+const _createProduct = product => {
   return {
-  type: CREATE_PRODUCT,
-  product
-  }
+    type: CREATE_PRODUCT,
+    product
+  };
 };
 
 //----------------------------------------------------------------------
@@ -156,13 +156,13 @@ export const loadProducts = () => {
   };
 };
 
-export const createProduct = (product) => {
+export const createProduct = product => {
   return dispatch => {
     return axios
-      .post('/api/products/')
+      .post('/api/products/', product)
       .then(response => response.data)
       .then(product => {
-        dispatch(_createProduct(product));w
+        dispatch(_createProduct(product));
       });
   };
 };
@@ -178,7 +178,7 @@ export const loadReviews = () => {
   };
 };
 
-const loadUsers = () => {
+export const loadUsers = () => {
   return dispatch => {
     return axios
       .get('/api/users')
@@ -189,31 +189,34 @@ const loadUsers = () => {
   };
 };
 
-
 // gets logged in user
-export const getMe = () => dispatch => {
+export const getMe = () => (dispatch, getState) => {
   return axios
     .get('/auth/me')
     .then(res => res.data)
-
     .then(loggedInUser => {
-      console.log("USER",loggedInUser)
-      dispatch(_getMe(loggedInUser))
+      console.log('USER', loggedInUser);
+      dispatch(_getMe(loggedInUser));
     })
-    .catch(error => console.log(error))
-}
-
+    .then(() => {
+      const { loggedInUser } = getState();
+      axios.post(`/api/cart/update_id/`, loggedInUser);
+    })
+    .then(() => dispatch(getCreateOrders()))
+    .catch(error => console.log(error));
+};
 
 //authorizes user
-export const login = (credentials) => dispatch => {
-    return axios.put('/auth/login', credentials)
+export const login = credentials => dispatch => {
+  return axios
+    .put('/auth/login', credentials)
     .then(res => res.data)
-    .then( (loggedInUser) => dispatch(getMe(loggedInUser)))
-  }
-
+    .then(loggedInUser => dispatch(getMe(loggedInUser)));
+};
 
 export const logout = () => dispatch => {
-  return axios.delete('/auth/logout')
+  return axios
+    .delete('/auth/logout')
     .then(() => dispatch(_getMe({})))
-    .catch(console.error.bind(console))
-}
+    .catch(console.error.bind(console));
+};
