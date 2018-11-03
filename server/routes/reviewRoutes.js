@@ -1,5 +1,5 @@
 const reviewRouter = require('express').Router();
-const Review = require('../../models/Review')
+const Review = require('../models/Review')
 
 reviewRouter.get('/', (req, res, next) => {
   Review.findAll()

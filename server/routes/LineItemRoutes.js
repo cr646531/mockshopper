@@ -1,6 +1,6 @@
 const express = require('express');
 const lineItemRouter = express.Router();
-const LineItem = require('../../models/LineItem.js');
+const LineItem = require('../models/LineItem.js');
 
 lineItemRouter.get('/', (req, res, next) => {
   LineItem.findAll()
