@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux'
@@ -23,7 +23,7 @@ class NavigationBar extends Component {
   }
 
   render() {
-    const { handleClick } = this.props;
+    const { handleClick, loggedInUser } = this.props;
 
     return (
       <div>
@@ -35,21 +35,31 @@ class NavigationBar extends Component {
           <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
           <Collapse isOpen={!this.state.collapsed} navbar>
 
+            {!loggedInUser.id ? 
               <NavItem onClick={this.toggleNavbar} >
-              <Link to="/login">Login</Link>
-            </NavItem>
-            <NavItem onClick={handleClick}>Logout</NavItem>
+                <Link to="/login">Login</Link>
+              </NavItem>
+              :
+              <Fragment>
+                <NavItem onClick={handleClick}>Logout</NavItem>
+                <NavItem>
+                  <Link onClick={this.toggleNavbar} to="/profile">Profile</Link>
+                </NavItem>
+              </Fragment>
+            }
+            {
+              loggedInUser.admin && (
+              <NavItem>
+                <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
+              </NavItem>
+
+              )
+            }
             <NavItem>
               <Link onClick={this.toggleNavbar} to="/products">Products</Link>
             </NavItem>
             <NavItem>
-              <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
-            </NavItem>
-            <NavItem>
               <Link onClick={this.toggleNavbar} to="/create_account">Create Account</Link>
-            </NavItem>
-            <NavItem>
-              <Link onClick={this.toggleNavbar} to="/profile">Profile</Link>
             </NavItem>
           </Collapse>
         </Navbar>
@@ -60,7 +70,7 @@ class NavigationBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: !!state.loggedInUser.id
+    loggedInUser: state.loggedInUser
   }
 }
 
@@ -76,7 +86,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(NavigationBar);
 

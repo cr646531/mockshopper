@@ -33,7 +33,10 @@ class App extends Component {
             <Route exact path="/products" component={Product} />
             <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
             <Route exact path="/add/product" component={ProductForm} />
-            <Route exact path="/profile" component={Profile} />
+            { this.props.loggedInUser ? 
+              <Route exact path="/profile" component={Profile} />
+              : null
+            }
             <Route path="/create_account" component={CreateAccount} />
             <Route path="/login" component={Login} />
           </Switch>
