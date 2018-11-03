@@ -23,24 +23,23 @@ router.get('/me', (req, res, next) => {
   }
 })
 
-router.put('/login', async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      where: {
-        email: req.body.email,
-        password: req.body.password
+router.put('/login', (req, res, next) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }
+  })
+    .then(user => {
+      if (user) {
+        req.login(user, (err) => err ? next(err) : res.json(user))
+      } else {
+        const err = new Error('Incorrect email or password!')
+        err.status = 401
+        next(err)
       }
     })
-    if (user) {
-      req.login(user, (err) => err ? next(err) : res.json(user))
-    } else {
-      const err = new Error('Incorrect email or password!')
-      err.status = 401
-      throw err
-    }
-  } catch (err) {
-    next(err)
-  }
+    .catch(next)
 })
 
 // router.post('/create_account', async (req, res, next) => {
