@@ -178,7 +178,7 @@ export const loadReviews = () => {
   };
 };
 
-const loadUsers = () => {
+export const loadUsers = () => {
   return dispatch => {
     return axios
       .get('/api/users')
