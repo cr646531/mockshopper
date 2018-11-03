@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import { updateLineItem, destroyLineItem } from '../store';
 
 const mapStateToProps = state => {
-  const cart = state.orders.find(order => order.status === 'CART');
+  const cart = state.orders.find(order => {
+    if (state.loggedInUser.id) {
+      return order.status === 'CART' && order.userId === state.loggedInUser.id;
+    } else {
+      return order.status === 'CART' && (!order.userId);
+    }
+  });
 
-   
   return {
     products: state.products,
     orders: state.orders,
@@ -48,9 +53,6 @@ class Cart extends Component {
   }
 
   render() {
-
-    
-   
     return (
       <div>
         <div align="center">

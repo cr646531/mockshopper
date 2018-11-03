@@ -11,7 +11,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = (state, props) => {
-  const currentOrder = state.orders.find(order => order.status === 'CART');
+  const currentOrder = state.orders.find(order => {
+    if (state.loggedInUser.id) {
+      return order.status === 'CART' && order.userId === state.loggedInUser.id;
+    } else {
+     return order.status === 'CART' && (!order.userId);
+    }
+  });
 
   return {
     products: state.products,
