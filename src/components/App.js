@@ -44,7 +44,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: !!state.loggedInUser.id
+    loggedIn: !!state.loggedInUser || !!!!state.loggedInUser.id
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
