@@ -15,10 +15,11 @@ import { CreateAccount, Login } from './Login';
 class App extends Component {
 
   componentDidMount() {
+    
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();
-    this.props.loggedIn ? this.props.initUser() : null
+    this.props.loggedInUser ? this.props.initUser() : null
 
   }
 
@@ -44,7 +45,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: !!state.loggedInUser || !!!!state.loggedInUser.id
+    loggedInUser: state.loggedInUser
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
