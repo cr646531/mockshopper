@@ -18,7 +18,7 @@ class App extends Component {
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();
-    this.props.loggedInUser ? this.props.initUser() : null
+    this.props.loggedIn ? this.props.initUser() : null
 
   }
 
@@ -44,7 +44,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedInUser: !!state.loggedInUser
+    loggedIn: !!state.loggedInUser.id
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
