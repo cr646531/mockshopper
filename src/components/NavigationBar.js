@@ -49,10 +49,14 @@ class NavigationBar extends Component {
             }
             {
               loggedInUser.admin && (
-              <NavItem>
-                <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
-              </NavItem>
-
+              <Fragment>
+                <NavItem>
+                  <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
+                </NavItem>
+                <NavItem>
+                  <Link onClick={this.toggleNavbar} to="/admin">Admin</Link>
+                </NavItem>
+              </Fragment>
               )
             }
             <NavItem>
