@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
@@ -8,9 +8,10 @@ import ProductDetail from './ProductDetail';
 import Profile from './Profile';
 import Cart from './Cart.js';
 import ProductForm from './ProductForm.js';
-import store, { loadUsers, loadProducts, loadReviews, getMe, getCreateOrders } from '../store';
+import Admin from './Admin.js';
+import {Login, CreateAccount} from './Login';
+import store, {loadUsers, loadProducts, loadReviews, getMe, getCreateOrders} from '../store';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { CreateAccount, Login } from './Login';
 
 class App extends Component {
 
@@ -31,7 +32,14 @@ class App extends Component {
           <Switch>
             <Route exact path="/products" component={Product} />
             <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
-            <Route exact path="/add/product" component={ProductForm} />
+            { this.props.loggedInUser.admin ? 
+                <Fragment>
+                  <Route exact path="/add/product" component={ProductForm} />
+                  <Route exact path="/admin" component={Admin} />
+                </Fragment>
+                :
+                null
+            }
             { this.props.loggedInUser ? 
               <Route exact path="/profile" component={Profile} />
               : null

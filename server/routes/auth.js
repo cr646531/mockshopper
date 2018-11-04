@@ -7,20 +7,19 @@ router.use('/google', require('./oauth'))
 
 
 //do we even need this? 
-const userNotFound = (next) => {
-  const err = new Error('user not signed in')
-  err.status = 404
-  next(err)
-}
+// const userNotFound = (next) => {
+//   const err = new Error('user not signed in')
+//   err.status = 404
+//   next(err)
+// }
 
 router.get('/me', (req, res, next) => {
   if (!req.user || !req.user.id) { //defensive, not throwing error when not signed in? 
-    userNotFound(next)
-  } else {
-    User.findById(req.user.id)
-      .then(user => user ? res.json(user) : userNotFound(next))
-      .catch(next)
-  }
+    return res.sendStatus(401)
+  } 
+  User.findById(req.user.id)
+    .then(user => res.json(user))
+    .catch(next)
 })
 
 router.put('/login', (req, res, next) => {
