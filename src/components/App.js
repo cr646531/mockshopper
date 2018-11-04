@@ -10,7 +10,7 @@ import Cart from './Cart.js';
 import ProductForm from './ProductForm.js';
 import Admin from './Admin.js';
 import {Login, CreateAccount} from './Login';
-import store, {loadUsers, loadProducts, loadReviews, getMe, getCreateOrders} from '../store';
+import store, {loadUsers, loadProducts, loadReviews, loadImages, getMe, getCreateOrders} from '../store';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
     this.props.loadOrders();
     this.props.loadReviews();
     this.props.loadUsers();
+    this.props.initImages();
     this.props.loggedInUser ? this.props.initUser() : null
 
   }
@@ -66,7 +67,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadReviews: () => dispatch(loadReviews()),
     loadUsers: () => dispatch(loadUsers()),
     initProducts: () => { dispatch(loadProducts()) },
-    initUser: () => { dispatch(getMe())}
+    initUser: () => { dispatch(getMe())},
+    initImages: () => { dispatch(loadImages()) }
   }
 };
 

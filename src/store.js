@@ -11,6 +11,8 @@ const LOAD_USERS = 'LOAD_USERS';
 const GET_ME = 'GET_ME';
 const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
+const LOAD_IMAGES = 'LOAD_IMAGES';
+const CREATE_IMAGE = 'CREATE_IMAGE';
 
 const SUBMIT_ORDER = 'SUBMIT_ORDER';
 
@@ -63,12 +65,25 @@ const loggedInUserReducer = (state = {}, action) => {
   return state;
 };
 
+const imageReducer = (state = [], action) => {
+  switch (action.type) {
+    case LOAD_IMAGES:
+      state = action.images;
+      break;
+    case CREATE_IMAGE:
+      state = [...state, action.image];
+      break;
+  };
+  return state;
+};
+
 const reducer = combineReducers({
   products: productReducer,
   reviews: reviewReducer,
   users: userReducer,
   loggedInUser: loggedInUserReducer,
-  orders: orderReducer
+  orders: orderReducer,
+  images: imageReducer
 });
 
 export default createStore(reducer, applyMiddleware(thunk, loggerMiddleware));
@@ -106,6 +121,20 @@ const _createProduct = product => {
   return {
     type: CREATE_PRODUCT,
     product
+  };
+};
+
+const _loadImages = images => {
+  return {
+    type: LOAD_IMAGES,
+    images
+  };
+};
+
+const _createImage = (image) => {
+  return {
+    type: CREATE_IMAGE,
+    image
   };
 };
 
@@ -231,3 +260,25 @@ export const logout = () => dispatch => {
     .then(() => dispatch(_getMe({})))
     .catch(console.error.bind(console));
 };
+
+
+//---------------------------Images-------------------------------//
+
+
+
+export const loadImages = () => {
+  return dispatch => {
+    return axios.get('/api/images/')
+      .then(response => response.data)
+      .then(images => dispatch(_loadImages(images)))
+  };
+};
+
+export const createImage = (image) => {
+  return dispatch => {
+    return axios.post('/api/images/', image)
+      .then(response => response.data)
+      .then(image => { dispatch(_createImage(image)) })
+  };
+};
+

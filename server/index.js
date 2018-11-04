@@ -11,6 +11,7 @@ const productRouter = require('./routes/productRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const lineItemRouter = require('./routes/lineItemRoutes');
 const authRouter =require('./routes/auth')
+const imageRouter = require('./routes/imageRoutes');
 const morgan = require('morgan');
 
 const app = express();
@@ -50,6 +51,7 @@ app.use('/api/reviews', reviewRouter);
 app.use('/api/products', productRouter);
 app.use('/api/lineItems', lineItemRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/images', imageRouter);
 
 
 module.exports = app;

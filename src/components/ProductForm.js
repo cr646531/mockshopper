@@ -9,10 +9,24 @@ class ProductForm extends Component {
     this.state = {
       name: 'name',
       description: 'description',
-      category: 'category'
+      category: 'category',
+      imageData: ''
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
+  }
+
+  componentDidMount(){
+    const fileReader = new FileReader();
+    fileReader.addEventListener('load', () => {
+      //console.log(fileReader.result);
+      this.setState({
+        imageData: fileReader.result
+      })
+    });
+    this.el.addEventListener('change', () => {
+      fileReader.readAsDataURL(this.el.files[0]);
+    });
   }
 
   onChange(event) {
@@ -22,20 +36,21 @@ class ProductForm extends Component {
   }
 
   onSave(event) {
-    const { createNewProduct } = this.props
-    const { name, description, category } = this.state
+    const { createNewProduct } = this.props;
+    const { name, description, category, imageData } = this.state;
 
     event.preventDefault()
     createNewProduct({
       name: name,
       description: description,
-      category: category
+      category: category,
+      imageData: imageData
     })
     
   }
 
   render(){
-    const { name, description, category } = this.state;
+    const { name, description, category, imageData } = this.state;
     return (
       <div>
         <h1>Create Product</h1>
@@ -51,6 +66,8 @@ class ProductForm extends Component {
           Category: 
           <input type='text' name='category' value={category} onChange={this.onChange} />
           <br />
+          <input ref={el => this.el = el} type='file' />
+          <br />
           <button>Submit</button>
         </form>
       </div>
@@ -60,7 +77,7 @@ class ProductForm extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createNewProduct: (product) => { dispatch(createProduct(product)) }
+    createNewProduct: (product) => { dispatch(createProduct(product)) },
   }
 };
 

@@ -4,6 +4,7 @@ const Order = require('./Cart');
 const Product = require('./Product');
 const Review = require('./Review');
 const LineItem = require('./LineItem')
+const Image = require('./Image');
 
 
 Review.belongsTo(User);
@@ -15,6 +16,8 @@ Order.belongsTo(User)
 
 LineItem.belongsTo(Order);
 LineItem.belongsTo(Product)
+
+Product.belongsTo(Image);
 
 
 const syncAndSeed = async () => {
