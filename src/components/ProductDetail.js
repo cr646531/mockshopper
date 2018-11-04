@@ -59,7 +59,6 @@ class ProductDetail extends Component {
     const productsLineItem = this.props.currentOrder.lineItems.find(
       lineItem => lineItem.productId === this.state.product.id
     );
-
     if (!productsLineItem) {
       this.props.createLineItem({
         orderId: this.props.currentOrder.id,

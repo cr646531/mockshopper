@@ -26,9 +26,9 @@ lineItemRouter.put('/:lineItemId/order/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-lineItemRouter.post('/order/:orderId', (req, res, next) => {
+lineItemRouter.post('/order/', (req, res, next) => {
   LineItem.create({
-    orderId: req.params.orderId,
+    orderId: req.body.orderId,
     quantity: req.body.quantity,
     productId: req.body.productId
   })

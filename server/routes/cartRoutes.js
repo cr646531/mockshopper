@@ -6,11 +6,10 @@ const LineItem = require('../models/LineItem');
 
 cartRouter.get('/orders/', async (req, res, next) => {
   const attr = {
-    status: 'CART',
-    userId: req.body.loggedInUser ? req.body.loggedInUser.id : null
+    status: 'CART'
   };
   try {
-    let cart = await Order.findOne({ where: attr });
+    let cart = await Order.findOne(attr);
     if (!cart) {
       cart = await Order.create(attr);
     }
@@ -28,17 +27,29 @@ cartRouter.get('/orders/', async (req, res, next) => {
   }
 });
 
-cartRouter.post('/update_id', async (req, res, next) => {
-  const attr = {
-    status: 'CART',
-    userId: req.body.id
-  };
+cartRouter.post('/update_user_id', async (req, res, next) => {
   try {
-    let cart = await Order.findOne({ where: attr });
-    if (!cart) {
-      cart = await Order.create(attr);
-      
+    if (req.body.id) {
+      const attr = {
+        status: 'CART',
+        userId: req.body.id
+      };
+      let cart = await Order.findOne({ where: attr });
+      if (!cart) {
+        cart = await Order.findOne({
+          where: {
+            status: 'CART'
+          }
+        });
+        cart.update({
+          userId: req.body.id
+        });
+        await Order.create({
+          status: 'CART'
+        });
+      }
     }
+    res.sendStatus(200);
   } catch (ex) {
     next(ex);
   }
