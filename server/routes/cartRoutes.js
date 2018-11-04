@@ -55,4 +55,27 @@ cartRouter.post('/update_user_id', async (req, res, next) => {
   }
 });
 
+cartRouter.put('/submit/user/', (req, res, next) => {
+  Order.findOne({
+    where: {
+      status: 'CART',
+      userId: req.body.userId ? req.body.userId: null
+    }
+  })
+    .then(cart => cart.update({ status: 'ORDER' }))
+    .then(() => Order.create({status: 'CART' ,userId: req.body.userId ? req.body.userId: null}))
+    .then(() => res.sendStatus(200))
+    .catch(err => next(err));
+});
+
 module.exports = cartRouter;
+
+
+
+
+
+
+
+
+
+

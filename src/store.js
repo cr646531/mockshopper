@@ -12,6 +12,8 @@ const GET_ME = 'GET_ME';
 const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
+const SUBMIT_ORDER = 'SUBMIT_ORDER';
+
 //----------------------------------------------------------------------
 
 const orderReducer = (state = [], action) => {
@@ -108,6 +110,7 @@ const _createProduct = product => {
 };
 
 //----------------------------------------------------------------------
+
 export const destroyLineItem = lineItem => {
   return dispatch => {
     axios
@@ -144,6 +147,18 @@ export const getCreateOrders = () => {
       .then(response => dispatch(addOrdersToState(response.data)));
   };
 };
+
+export const submitOrder = userId => {
+  return dispatch => {
+    const user ={
+      userId: userId ? userId: null
+    }
+    return axios
+      .put(`/api/cart/submit/user/`, user)
+      .then(() => dispatch(getCreateOrders()));
+  };
+};
+
 //---------------------------------------------------------------
 
 export const loadProducts = () => {
