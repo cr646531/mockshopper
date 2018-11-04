@@ -22,7 +22,7 @@ try {
     await db.sync({ force: true })
 
     const [Emily, Leovanny, Charlie, David] = await Promise.all([
-        User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok'}),
+        User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok', admin: true}),
         User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
         User.create({ username: 'charlie' , email: 'charlie@aol.com', password: 'charlie'}),
         User.create({ username: 'david',  email: 'david@aol.com', password: 'david' })
