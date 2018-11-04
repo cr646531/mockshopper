@@ -23,7 +23,8 @@ const mapStateToProps = (state, props) => {
     products: state.products,
     lineItems: state.lineItems,
     currentOrder,
-    auth: state.auth
+    auth: state.auth,
+    images: state.images
   };
 };
 
@@ -76,6 +77,15 @@ class ProductDetail extends Component {
       <div>
         {this.state.product ? (
           <div>
+            {
+              this.props.images.map(image => {
+                if(image.id === this.state.product.imageId){
+                  return (
+                    <img key={image.id} src={image.data} />
+                  )
+                }
+              })
+            }
             <hr />
             <br />
             <div>Name: {this.state.product.name}</div>

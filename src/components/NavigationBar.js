@@ -6,6 +6,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reac
 import Login from './OauthLogin'
 import { logout } from '../store'
 import { Cart } from 'react-bytesize-icons';
+import { loadImages } from '../store';
 
 class NavigationBar extends Component {
   constructor() {
@@ -14,12 +15,20 @@ class NavigationBar extends Component {
       collapsed: true
     };
     this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.toggleAndLoadImages = this.toggleAndLoadImages.bind(this);
   }
 
   toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
     });
+  }
+
+  toggleAndLoadImages(){
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+    this.props.loadImages();
   }
 
   render() {
@@ -60,7 +69,7 @@ class NavigationBar extends Component {
               )
             }
             <NavItem>
-              <Link onClick={this.toggleNavbar} to="/products">Products</Link>
+              <Link onClick={this.toggleAndLoadImages} to="/products">Products</Link>
             </NavItem>
             <NavItem>
               <Link onClick={this.toggleNavbar} to="/create_account">Create Account</Link>
@@ -84,7 +93,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(logout()).then(() => {
         ownProps.history.push('/');
       });
-    }
+    },
+    loadImages: () => { dispatch(loadImages()) }
   };
 };
 
