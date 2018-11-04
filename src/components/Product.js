@@ -35,7 +35,6 @@ class Product extends Component {
         <form id='searchFrom'>
           <label> Search: </label>
           <input type='text' name='search' vlaue={this.state.search} onChange={this.handleSearch}/>
-          <button>find</button>
         </form>
       </div>
 
