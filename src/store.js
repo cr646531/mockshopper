@@ -129,18 +129,19 @@ export const updateLineItem = lineItem => {
 export const createLineItem = lineItem => {
   return dispatch => {
     axios
-      .post(`/api/lineItems/order/${lineItem.orderId}`, lineItem)
+      .post(`/api/lineItems/order/`, lineItem)
       .then(() => dispatch(getCreateOrders()))
       .then(err => console.log(err));
   };
 };
 
 export const getCreateOrders = () => {
-  return dispatch => {
-    axios
-      .get('/api/cart/orders')
-      .then(response => dispatch(addOrdersToState(response.data)))
-      .catch(err => console.log(err));
+  return (dispatch, getState) => {
+    const { loggedInUser } = getState();
+    return axios
+      .post('/api/cart/update_user_id', loggedInUser)
+      .then(() => axios.get(`/api/cart/orders/`))
+      .then(response => dispatch(addOrdersToState(response.data)));
   };
 };
 //---------------------------------------------------------------
@@ -198,12 +199,7 @@ export const getMe = () => (dispatch, getState) => {
       console.log('USER', loggedInUser);
       dispatch(_getMe(loggedInUser));
     })
-    .then(() => {
-      const { loggedInUser } = getState();
-      axios.post(`/api/cart/update_id/`, loggedInUser);
-    })
-    .then(() => dispatch(getCreateOrders()))
-    .catch(error => console.log(error));
+    .then(() => dispatch(getCreateOrders()));
 };
 
 //authorizes user
