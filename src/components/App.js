@@ -33,6 +33,10 @@ class App extends Component {
           <Switch>
             <Route exact path="/products" component={Product} />
             <Route path="/products/:productId" render={ ({ match }) => <ProductDetail productId={ match.params.productId } /> } />
+            { this.props.loggedInUser ? 
+              <Route exact path="/profile" component={Profile} />
+              : null
+            }
             { this.props.loggedInUser.admin ? 
                 <Fragment>
                   <Route exact path="/add/product" component={ProductForm} />
@@ -40,10 +44,6 @@ class App extends Component {
                 </Fragment>
                 :
                 null
-            }
-            { this.props.loggedInUser ? 
-              <Route exact path="/profile" component={Profile} />
-              : null
             }
             <Route path="/create_account" component={CreateAccount} />
             <Route path="/login" component={Login} />
