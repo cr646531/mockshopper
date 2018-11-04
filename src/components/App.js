@@ -15,7 +15,6 @@ import { CreateAccount, Login } from './Login';
 class App extends Component {
 
   componentDidMount() {
-    
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();
@@ -50,15 +49,14 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return { 
+  return {
 
     loadOrders: () => dispatch(getCreateOrders()),
     loadReviews: () => dispatch(loadReviews()),
     loadUsers: () => dispatch(loadUsers()),
     initProducts: () => { dispatch(loadProducts()) },
-    initUser: () => { dispatch(getMe())} 
+    initUser: () => { dispatch(getMe())}
   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
