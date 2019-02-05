@@ -23,9 +23,9 @@ class App extends Component {
     this.props.initProducts();
     this.props.loadOrders();
     this.props.loadReviews();
-    this.props.loadUsers();
+    // this.props.loadUsers();
     this.props.initImages();
-    this.props.loggedInUser ? this.props.initUser() : null
+    // this.props.loggedInUser ? this.props.initUser() : null
   }
 
   render() {
