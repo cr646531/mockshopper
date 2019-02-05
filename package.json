@@ -59,7 +59,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/my_db nodemon server/index.js --ignore src/ --ignore dist",
-    "start": "npm run webpack -- --watch --mode=development & DATABASE_URL=HEROKU_POSTGRESQL_WHITE nodemon server/index.js --ignore src/ --ignore dist",
+    "start": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/my_db nodemon server/index.js --ignore src/ --ignore dist",
     "postinstall": "npm run webpack"
 
   },
