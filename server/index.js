@@ -5,10 +5,10 @@ const {syncAndSeed} = require('./models/index')
 
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
-const productRouter = require('./routes/ProductRoutes.js');
 const cartRouter = require('./routes/cartRoutes');
 const lineItemRouter = require('./routes/lineItemRoutes');
 const imageRouter = require('./routes/imageRoutes');
+const productRouter = require('./routes/productRoutes');
 const morgan = require('morgan');
 
 const app = express();

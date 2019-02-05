@@ -3,6 +3,7 @@ const productRouter = express.Router();
 const Product = require('../models/Product.js');
 const Review = require('../models/Review.js')
 const Image = require('../models/Image.js');
+//debugging
 
 productRouter.get('/', (req, res, next) => {
   Product.findAll({
@@ -41,3 +42,4 @@ productRouter.get('/with_reviews/', (req, res, next) => {
 });
 
 module.exports = productRouter;
+
