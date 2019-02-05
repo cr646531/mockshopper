@@ -22,6 +22,45 @@ LineItem.belongsTo(Product)
 Product.belongsTo(Image);
 
 
+// const syncAndSeed = async () => {
+
+//   return db.sync({ force: true })
+//     .then(async () => {
+//       emily = await User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok', admin: true}),
+//       leo = await User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
+//       charlie = await User.create({ username: 'charlie' , email: 'charlie@aol.com', password: 'charlie'}),
+//       david = await User.create({ username: 'david',  email: 'david@aol.com', password: 'david' })
+//     })
+//     .then(async () => {
+//       review1 = await Review.create({ text: 'Tihs producct is grate but I thunk im a litle drunk' }),
+//       review2 = await Review.create({ text: 'I had a whole 12 pack last night. I feel like trash right now.' }),
+//       review3 = await Review.create({ text: "The finest beer I've ever had!" })
+//     })
+//     .then(async () => {
+//       stella = await Product.create({ name: 'Stella', description: `Stella description`, category: 'Pilsner' }),
+//       duff = await Product.create({ name: 'Duff Beer', description: `Simpsons reference.`, category: 'Fictional' }),
+//       pawtucket = await Product.create({ name: 'Pawtucket Patriot Ale', description: `Family Guy's beer`, category: 'Fictional' }),
+//       alamo = await Product.create({ name: 'Alamo Beer', description: `King of the Hill`, category: 'Fictional' }),
+//       buzz = await Product.create({ name: 'Buzz Beer', description: `Beer with coffee in it`, category: 'Fictional' }),
+//       bend = await Product.create({ name: 'Bendërbrau', description: `Beer made by Bender in Futurama`, category: 'Fictional' }),
+//       stellaImage = await Image.create({ data: stella })
+//     })
+//     .then(() => {
+//       return Promise.all([
+//         Alamo.setReviews(review1),
+//         Duff.setReviews(review2),
+//         Buzz.setReviews(review3),
+//         David.setReviews(review1),
+//         David.setReviews(review2),
+//         David.setReviews(review3),
+//         Stella.setImage(stellaImage)
+//       ])
+//     })
+//     .catch(error => console.log(error))
+// }
+
+
+
 const syncAndSeed = async () => {
 try {
     await db.sync({ force: true })
