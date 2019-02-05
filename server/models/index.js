@@ -35,20 +35,20 @@ const syncAndSeed = async () => {
     })
     .then(() => {
       return Promise.all([
-      review1 = await Review.create({ text: 'Tihs producct is grate but I thunk im a litle drunk' }),
-      review2 = await Review.create({ text: 'I had a whole 12 pack last night. I feel like trash right now.' }),
-      review3 = await Review.create({ text: "The finest beer I've ever had!" })
+      Review.create({ text: 'Tihs producct is grate but I thunk im a litle drunk' }),
+      Review.create({ text: 'I had a whole 12 pack last night. I feel like trash right now.' }),
+      Review.create({ text: "The finest beer I've ever had!" })
       ])
     })
     .then(() => {
       return Promise.all([
-      stella = await Product.create({ name: 'Stella', description: `Stella description`, category: 'Pilsner' }),
-      duff = await Product.create({ name: 'Duff Beer', description: `Simpsons reference.`, category: 'Fictional' }),
-      pawtucket = await Product.create({ name: 'Pawtucket Patriot Ale', description: `Family Guy's beer`, category: 'Fictional' }),
-      alamo = await Product.create({ name: 'Alamo Beer', description: `King of the Hill`, category: 'Fictional' }),
-      buzz = await Product.create({ name: 'Buzz Beer', description: `Beer with coffee in it`, category: 'Fictional' }),
-      bend = await Product.create({ name: 'Bendërbrau', description: `Beer made by Bender in Futurama`, category: 'Fictional' }),
-      stellaImage = await Image.create({ data: stella })
+      Product.create({ name: 'Stella', description: `Stella description`, category: 'Pilsner' }),
+      Product.create({ name: 'Duff Beer', description: `Simpsons reference.`, category: 'Fictional' }),
+      Product.create({ name: 'Pawtucket Patriot Ale', description: `Family Guy's beer`, category: 'Fictional' }),
+      Product.create({ name: 'Alamo Beer', description: `King of the Hill`, category: 'Fictional' }),
+      Product.create({ name: 'Buzz Beer', description: `Beer with coffee in it`, category: 'Fictional' }),
+      Product.create({ name: 'Bendërbrau', description: `Beer made by Bender in Futurama`, category: 'Fictional' }),
+      Image.create({ data: stella })
       ])
     })
     .catch(error => console.log(error))
