@@ -13,8 +13,31 @@ const GET_CREATE_ORDER = 'GET_CREATE_ORDER';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const LOAD_IMAGES = 'LOAD_IMAGES';
 const CREATE_IMAGE = 'CREATE_IMAGE';
-
 const SUBMIT_ORDER = 'SUBMIT_ORDER';
+
+const TOGGLE_INTRO = 'TOGGLE_INTRO';
+const TOGGLE_VISIBILITY = "TOGGLE_VISIBILITY";
+
+//------------------------------------------------------------------------------//
+
+const introReducer = (state = { introVisibility: true }, action) => {
+
+  const newState = Object.assign({}, state);
+
+  switch(action.type){
+    case TOGGLE_VISIBILITY:
+      if(state.introVisibility){
+        newState.introVisibility = false;
+      } else {
+        newState.introVisibility = true;
+      }
+      break;
+  }
+
+  return newState;
+};
+
+//------------------------------------------------------------------------------//
 
 //----------------------------------------------------------------------
 
@@ -83,10 +106,12 @@ const reducer = combineReducers({
   users: userReducer,
   loggedInUser: loggedInUserReducer,
   orders: orderReducer,
-  images: imageReducer
+  images: imageReducer,
+  intro: introReducer
 });
 
-export default createStore(reducer, applyMiddleware(thunk, loggerMiddleware));
+// export default createStore(reducer, applyMiddleware(thunk, loggerMiddleware));
+export default createStore(reducer, applyMiddleware(thunk));
 
 //----------------------------------------------------------------------
 
@@ -137,6 +162,12 @@ const _createImage = (image) => {
     image
   };
 };
+
+const _toggleIntro = () => {
+  return {
+    type: TOGGLE_INTRO
+  }
+}
 
 //----------------------------------------------------------------------
 
@@ -261,6 +292,10 @@ export const logout = () => dispatch => {
     .catch(console.error.bind(console));
 };
 
+export const toggleIntro = () => {
+  return dispatch;
+};
+
 
 //---------------------------Images-------------------------------//
 
@@ -281,4 +316,25 @@ export const createImage = (image) => {
       .then(image => { dispatch(_createImage(image)) })
   };
 };
+
+
+export const _toggleIntroVisibility = () => {
+  return {
+    type: TOGGLE_VISIBILITY
+  }
+};
+
+export const toggleIntroVisibility = () => {
+  return dispatch => _toggleIntroVisibility();
+}
+
+
+
+
+
+
+
+//----
+
+
 

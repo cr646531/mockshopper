@@ -5,7 +5,11 @@ const Review = require('../models/Review.js')
 const Image = require('../models/Image.js');
 
 productRouter.get('/', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [{
+      model: Image
+    }]
+  })
     .then(products => res.send(products))
     .catch(next);
 });

@@ -6,6 +6,8 @@ const Review = require('./Review');
 const LineItem = require('./LineItem')
 const Image = require('./Image');
 
+const { stella } = require('./sampleImages');
+
 
 Review.belongsTo(User);
 User.hasMany(Review);
@@ -43,10 +45,10 @@ try {
         })
     ])
     
-    const [Stella, Duff, Alamo, Buzz, Benderbrau] = await Promise.all([
+    const [Stella, Duff, Paw, Alamo, Buzz, Benderbrau, stellaImage] = await Promise.all([
         Product.create({
           name: 'Stella',
-          description: `Stella Artois (/ˈstɛlə ɑːrˈtwɑː/ STEL-ə ar-TWAH) is a Belgian pilsner of between 4.8 and 5.2% ABV which was first brewed by Brouwerij Artois (the Artois Brewery) in Leuven, Belgium, in 1926. Since 2008, a 4% ABV version has also been sold in Britain, Ireland, Canada and New Zealand. Stella Artois is now owned by Interbrew International B.V. which is a subsidiary of the world's largest brewer, Anheuser-Busch InBev SA/NV.`,
+          description: `Stella description`,
           category: 'Pilsner'
         }),
         Product.create({
@@ -73,6 +75,9 @@ try {
           name: 'Bendërbrau',
           description: `Beer made by Bender in Futurama`,
           category: 'Fictional'
+        }),
+        Image.create({
+          data: stella
         })
     ])
 
@@ -82,7 +87,8 @@ try {
       Buzz.setReviews(review3),
       David.setReviews(review1),
       David.setReviews(review2),
-      David.setReviews(review3)
+      David.setReviews(review3),
+      Stella.setImage(stellaImage)
     ])
 
   } catch(error) {

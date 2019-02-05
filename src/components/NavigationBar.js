@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
-import Login from './OauthLogin'
 import { logout } from '../store'
 import { Cart } from 'react-bytesize-icons';
 import { loadImages } from '../store';
+
+import Search_Bar from './products/Search_Bar';
+import { Container, Row, Col } from 'react-grid-system';
+
+import store, { _toggleIntroVisibility} from '../store.js';
 
 class NavigationBar extends Component {
   constructor() {
@@ -16,6 +20,11 @@ class NavigationBar extends Component {
     };
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.toggleAndLoadImages = this.toggleAndLoadImages.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    store.dispatch(_toggleIntroVisibility());
   }
 
   toggleNavbar() {
@@ -36,38 +45,27 @@ class NavigationBar extends Component {
 
     return (
       <div>
-        <Navbar color="light" light expands="md">
-          <NavbarBrand> Lights-Out Brewery </NavbarBrand>
+        <Navbar color="light" light expands="md" offset="3" >
+        <Col>
+          <NavbarBrand> 
+            {/* <Link to="/" onClick={this.handleClick} > */}
+              <p onClick={this.handleClick}>MockShopper</p>
+            {/* </Link> */}
+          </NavbarBrand>
           <Link to="/cart">
-            <Cart />
+            <Cart />   
           </Link>
-          <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
+        </Col>
+        <Col>
+          <Search_Bar />
+        </Col>
+        <NavbarToggler onClick={this.toggleNavbar} className="ml-auto" />
           <Collapse isOpen={!this.state.collapsed} navbar>
-
-            {!loggedInUser.id ? 
-              <NavItem onClick={this.toggleNavbar} >
-                <Link to="/login">Login</Link>
+            <Fragment>
+              <NavItem>
+                <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
               </NavItem>
-              :
-              <Fragment>
-                <NavItem onClick={handleClick}>Logout</NavItem>
-                <NavItem>
-                  <Link onClick={this.toggleNavbar} to="/profile">Profile</Link>
-                </NavItem>
-              </Fragment>
-            }
-            {
-              loggedInUser.admin && (
-              <Fragment>
-                <NavItem>
-                  <Link onClick={this.toggleNavbar} to="/add/product">Add Product</Link>
-                </NavItem>
-                <NavItem>
-                  <Link onClick={this.toggleNavbar} to="/admin">Admin</Link>
-                </NavItem>
-              </Fragment>
-              )
-            }
+            </Fragment>
             <NavItem>
               <Link onClick={this.toggleAndLoadImages} to="/products">Products</Link>
             </NavItem>
@@ -83,7 +81,8 @@ class NavigationBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedInUser: state.loggedInUser
+    loggedInUser: state.loggedInUser,
+    introVisibility: state.intro.introVisibility
   }
 }
 
@@ -94,7 +93,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         ownProps.history.push('/');
       });
     },
-    loadImages: () => { dispatch(loadImages()) }
+    loadImages: () => { dispatch(loadImages()) },
+    toggleIntroVisibility: () => { dispatch(toggleIntroVisibility()) }
   };
 };
 

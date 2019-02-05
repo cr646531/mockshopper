@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session')
-const passport = require('passport')
 
 const {syncAndSeed} = require('./models/index')
 
@@ -10,7 +8,6 @@ const reviewRouter = require('./routes/reviewRoutes');
 const productRouter = require('./routes/productRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const lineItemRouter = require('./routes/lineItemRoutes');
-const authRouter =require('./routes/auth')
 const imageRouter = require('./routes/imageRoutes');
 const morgan = require('morgan');
 
@@ -29,23 +26,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use('/dist', express.static(path.join(__dirname, '../dist')))
 
-// Session middleware
-app.use(session({
-  secret: 'This is not a very secure secret...',
-  resave: false,
-  saveUninitialized: false
-}))
-
-// Oauth Passport Middleware
-app.use(passport.initialize())
-app.use(passport.session())
 
 // Static Middleware
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-app.use('/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/products', productRouter);

@@ -1,38 +1,66 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
+import { login } from '../store'
 
-import React from 'react'
-import {connect} from 'react-redux'
-import {login} from '../store'
 
 
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+class Login extends Component {
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  )
+  render(){
+    return (
+      <div id="login">
+        <br />
+        <Container>
+          <Row>
+            <Col sm="12" md={{ size: 6, offset: 3 }} >
+              <Form display="block">
+                <FormGroup>
+                  <h1>Sign in</h1>
+                  <br/>
+                  <Label for="emailInput" >Email</Label>
+                  <Input type="email" name="email" id="emailInput" placeholder=" " />
+                  <br />
+                  <Label for="passwordInput">Password</Label>
+                  <Input type="password" name="password" id="passwordInput" placeholder=" " />
+                </FormGroup>
+                <Link to="/products">
+                  <Button color="primary">Submit</Button>
+                </Link>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
+  }
+
+
+    // <div>
+    //   <form onSubmit={handleSubmit} name={name}>
+    //     <div>
+    //       <label htmlFor="email">
+    //         <small>Email</small>
+    //       </label>
+    //       <input name="email" type="text" />
+    //     </div>
+    //     <div>
+    //       <label htmlFor="password">
+    //         <small>Password</small>
+    //       </label>
+    //       <input name="password" type="password" />
+    //     </div>
+    //     <div>
+    //       <button type="submit">{displayName}</button>
+    //     </div>
+    //     {error && error.response && <div> {error.response.data} </div>}
+    //   </form>
+    // </div>
+
 }
 
-const mapLogin = state => {
+const mapStateToProps = state => {
   return {
     name: 'login',
     displayName: 'Login',
@@ -54,4 +82,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatchToProps)(AuthForm)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
