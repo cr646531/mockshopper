@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "css-loader": "^1.0.0",
+    "css-loader": "^1.0.1",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
@@ -61,7 +61,6 @@
     "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/my_db nodemon server/index.js --ignore src/ --ignore dist",
     "start": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/my_db nodemon server/index.js --ignore src/ --ignore dist",
     "postinstall": "npm run webpack"
-
   },
   "repository": {
     "type": "git",
