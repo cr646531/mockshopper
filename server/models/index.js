@@ -62,9 +62,9 @@ Product.belongsTo(Image);
 
 
 const syncAndSeed = async () => {
-try {
-    await db.sync({ force: true })
 
+    return db.sync({ force: true })
+    .then(async () => {
     const [Emily, Leovanny, Charlie, David] = await Promise.all([
         User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok', admin: true}),
         User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
@@ -129,10 +129,7 @@ try {
       David.setReviews(review3),
       Stella.setImage(stellaImage)
     ])
-
-  } catch(error) {
-    console.log(error)
-  }
+  })
 
 }
 
