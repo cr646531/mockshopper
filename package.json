@@ -62,7 +62,7 @@
     "webpack": "webpack",
     "build": "npm run webpack -- --watch --mode=development",
     "start:dev": "npm run build & DATABASE_URL=postgres://localhost/my_db nodemon server/server.js --ignore dist --ignore src",
-    "start": "npm run build & DATABASE_URL=postgres://localhost/my_db nodemon server/server.js --ignore dist --ignore src"
+    "start": "npm run build & DATABASE_URL=HEROKU_POSTGRESQL_RUGGED_URL nodemon server/server.js --ignore dist --ignore src"
   },
   "repository": {
     "type": "git",
