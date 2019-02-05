@@ -15,9 +15,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path')
 
+syncAndSeed();
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
-  syncAndSeed();
 });
 
 app.use(bodyParser.json());
