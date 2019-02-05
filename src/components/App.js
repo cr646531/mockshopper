@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Account_Creation from './Account_Creation.js';
