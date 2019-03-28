@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
@@ -15,7 +17,7 @@ import Login from './Login';
 import { loadUsers, loadProducts, loadReviews, loadImages, getMe, getCreateOrders } from '../store';
 
 // import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
 
