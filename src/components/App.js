@@ -2,9 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Account_Creation from './Account_Creation.js';
 import Products from './products/Products';
 import ProductDetail from './ProductDetail';
@@ -16,6 +13,9 @@ import Login from './Login';
 // import Account_Creation, Product_Catalog, Intro, NavigationBar, Product, Cart, Login from '../components';
 
 import { loadUsers, loadProducts, loadReviews, loadImages, getMe, getCreateOrders } from '../store';
+
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
 
