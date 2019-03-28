@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {syncAndSeed} = require('./models/index')
+const {sync, seed} = require('./models/index')
 
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -19,7 +19,8 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`)
 });
 
-syncAndSeed();
+sync()
+  .then(()=> seed());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

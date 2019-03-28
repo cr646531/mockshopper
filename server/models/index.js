@@ -6,7 +6,15 @@ const Review = require('./Review');
 const LineItem = require('./LineItem')
 const Image = require('./Image');
 
-const { stella } = require('./sampleImages');
+const tshirtData = require('./sampleImages/tshirt');
+const poloData = require('./sampleImages/polo');
+const tanktopData = require('./sampleImages/tanktop');
+const sneakersData = require('./sampleImages/sneakers');
+const bootsData = require('./sampleImages/boots');
+const sandalsData = require('./sampleImages/sandals');
+const jeansData = require('./sampleImages/jeans');
+const khakisData = require('./sampleImages/khakis');
+const cargosData = require('./sampleImages/cargos');
 
 
 Review.belongsTo(User);
@@ -22,114 +30,81 @@ LineItem.belongsTo(Product)
 Product.belongsTo(Image);
 
 
-const syncAndSeed = async () => {
+const sync = ()=> db.sync({ force: true });
 
-  return db.sync({ force: true })
-    .then(() => {
+const seed = ()=> {
+  let tshirt, polo, tanktop, sneakers, boots, sandals, jeans, khakis, cargos;
+  let tshirtReview, poloReview, tanktopReview, sneakersReview, bootsReview, sandalsReview, jeansReview, khakisReview, cargosReview;
+  let tshirtImage, poloImage, tanktopImage, sneakersImage, bootsImage, sandalsImage, jeansImage, khakisImage, cargosImage;
+
+  return Promise.all([
+    Product.create({ name: 'T-Shirt', description: 'A shirt named after the T shape of its body and sleeves', category: 'Shirts'}),
+    Product.create({ name: 'Polo', description: "A shirt with a collar styled after polo players in the 1920's", category: 'Shirts' }),
+    Product.create({ name: 'Tank Top', description: 'A shirt without sleeves commonly worn by athletes', category: 'Shirts' }),
+    Product.create({ name: 'Sneakers', description: 'Shoes primarily designed for sports or everyday wear', category: 'Shoes' }),
+    Product.create({ name: 'Boots', description: 'Shoes that cover the foot and ankle and extend up the leg', category: 'Shoes' }),
+    Product.create({ name: 'Sandals', description: "Shoes consisting of a sole held to the wearer's foot with straps", category: 'Shoes' }),
+    Product.create({ name: 'Jeans', description: 'Pants made from denim or dungaree cloth', category: 'Pants' }),
+    Product.create({ name: 'Khakis', description: 'Pants made from cotton worn in both casual and formal settings', category: 'Pants' }),
+    Product.create({ name: 'Cargos', description: 'Pants made from sturdy fabrics that are loose fitting', category: 'Pants' })
+  ])
+    .then((products)=> {
+      [tshirt, polo, tanktop, sneakers, boots, sandals, jeans, khakis, cargos, stella] = products;
       return Promise.all([
-        User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok', admin: true}),
-        User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
-        User.create({ username: 'charlie' , email: 'charlie@aol.com', password: 'charlie'}),
-        User.create({ username: 'david',  email: 'david@aol.com', password: 'david' })
+        Review.create({ text: "This T-shirt is very comfortable" }),
+        Review.create({ text: "This polo is practical and stylish" }),
+        Review.create({ text: "This tank top is perfect for excersizing" }),
+        Review.create({ text: "These sneakers are great for running" }),
+        Review.create({ text: "These boots work well for hiking" }),
+        Review.create({ text: "These sandals are perfect for relaxing" }),
+        Review.create({ text: "These jeans are very casual" }),
+        Review.create({ text: "These khakis go with everything" }),
+        Review.create({ text: "These cargos are great for camping" })
       ])
     })
-    .then(() => {
-      return Promise.all([
-      Review.create({ text: 'Tihs producct is grate but I thunk im a litle drunk' }),
-      Review.create({ text: 'I had a whole 12 pack last night. I feel like trash right now.' }),
-      Review.create({ text: "The finest beer I've ever had!" })
-      ])
-    })
-    .then(() => {
-      return Promise.all([
-      Product.create({ name: 'Stella', description: `Stella description`, category: 'Pilsner' }),
-      Product.create({ name: 'Duff Beer', description: `Simpsons reference.`, category: 'Fictional' }),
-      Product.create({ name: 'Pawtucket Patriot Ale', description: `Family Guy's beer`, category: 'Fictional' }),
-      Product.create({ name: 'Alamo Beer', description: `King of the Hill`, category: 'Fictional' }),
-      Product.create({ name: 'Buzz Beer', description: `Beer with coffee in it`, category: 'Fictional' }),
-      Product.create({ name: 'Bendërbrau', description: `Beer made by Bender in Futurama`, category: 'Fictional' }),
-      Image.create({ data: stella })
-      ])
-    })
-    .catch(error => console.log(error))
+      .then((reviews)=> {
+        [tshirtReview, poloReview, tanktopReview, sneakersReview, bootsReview, sandalsReview, jeansReview, khakisReview, cargosReview] = reviews;
+        return Promise.all([
+          Image.create({ data: tshirtData }),
+          Image.create({ data: poloData }),
+          Image.create({ data: tanktopData }),
+          Image.create({ data: sneakersData }),
+          Image.create({ data: bootsData }),
+          Image.create({ data: sandalsData }),
+          Image.create({ data: jeansData }),
+          Image.create({ data: khakisData }),
+          Image.create({ data: cargosData })
+        ])
+      })
+        .then((images)=> {
+          [tshirtImage, poloImage, tanktopImage, sneakersImage, bootsImage, sandalsImage, jeansImage, khakisImage, cargosImage] = images;
+          return Promise.all([
+            tshirt.setReviews(tshirtReview),
+            polo.setReviews(poloReview),
+            tanktop.setReviews(tanktopReview),
+            sneakers.setReviews(sneakersReview),
+            boots.setReviews(bootsReview),
+            sandals.setReviews(sandalsReview),
+            jeans.setReviews(jeansReview),
+            khakis.setReviews(khakisReview),
+            cargos.setReviews(cargosReview),
+            tshirt.setImage(tshirtImage),
+            polo.setImage(poloImage),
+            tanktop.setImage(tanktopImage),
+            sneakers.setImage(sneakersImage),
+            boots.setImage(bootsImage),
+            sandals.setImage(sandalsImage),
+            jeans.setImage(jeansImage),
+            khakis.setImage(khakisImage),
+            cargos.setImage(cargosImage)
+          ])
+        })
+
 }
 
-
-
-// const syncAndSeed = async () => {
-
-//     return db.sync({ force: true })
-//     .then(async () => {
-//     const [Emily, Leovanny, Charlie, David] = await Promise.all([
-//         User.create({ username: 'emily', email: 'emily@aol.com', password: 'ok', admin: true}),
-//         User.create({ username: 'leovanny',  email: 'leovanny@aol.com', password: 'leovanny'}),
-//         User.create({ username: 'charlie' , email: 'charlie@aol.com', password: 'charlie'}),
-//         User.create({ username: 'david',  email: 'david@aol.com', password: 'david' })
-//     ])
-
-//     const [review1, review2, review3] = await Promise.all([
-//         Review.create({
-//           text: 'Tihs producct is grate but I thunk im a litle drunk'
-//         }),
-//         Review.create({
-//           text: 'I had a whole 12 pack last night. I feel like trash right now.'
-//         }),
-//         Review.create({
-//           text: "The finest beer I've ever had!"
-//         })
-//     ])
-    
-//     const [Stella, Duff, Paw, Alamo, Buzz, Benderbrau, stellaImage] = await Promise.all([
-//         Product.create({
-//           name: 'Stella',
-//           description: `Stella description`,
-//           category: 'Pilsner'
-//         }),
-//         Product.create({
-//           name: 'Duff Beer',
-//           description: `Simpsons reference.`,
-//           category: 'Fictional'
-//         }),
-//         Product.create({
-//           name: 'Pawtucket Patriot Ale',
-//           description: `Family Guy's beer`,
-//           category: 'Fictional'
-//         }),
-//         Product.create({
-//           name: 'Alamo Beer',
-//           description: `King of the Hill`,
-//           category: 'Fictional'
-//         }),
-//         Product.create({
-//           name: 'Buzz Beer',
-//           description: `Beer with coffee in it`,
-//           category: 'Fictional'
-//         }),
-//         Product.create({
-//           name: 'Bendërbrau',
-//           description: `Beer made by Bender in Futurama`,
-//           category: 'Fictional'
-//         }),
-//         Image.create({
-//           data: stella
-//         })
-//     ])
-
-//     await Promise.all([
-//       Alamo.setReviews(review1),
-//       Duff.setReviews(review2),
-//       Buzz.setReviews(review3),
-//       David.setReviews(review1),
-//       David.setReviews(review2),
-//       David.setReviews(review3),
-//       Stella.setImage(stellaImage)
-//     ])
-//   })
-
-// }
-
 module.exports = { 
-    syncAndSeed,
+    sync,
+    seed,
     db, 
     User, 
     Product, 
